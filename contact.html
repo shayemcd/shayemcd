@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact · Shaye Hopkins</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/sh-logo.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="shell nav-container">
+      <a class="brand" href="index.html"><img src="assets/main-logo.png" alt="Shaye Hopkins Logo"></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html">Research</a></li>
+          <li><a href="bio.html">Bio & CV</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="shell grid two" style="align-items: start;">
+        
+        <div>
+          <span class="pill">Get in Touch</span>
+          <h1>Let's connect</h1>
+          <p class="lede">I’m always open to research collaborations, applied partnerships, or just connecting. Feel free to reach out!</p>
+          
+          <div class="card" style="margin-top:2rem; background: var(--primary-light); border:none;">
+            <h3>Other Channels</h3>
+            <a href="https://www.linkedin.com/in/shaye-hopkins/" target="_blank" style="font-weight:600; color:var(--primary);">Connect on LinkedIn &rarr;</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <form action="#" method="POST">
+            <div style="margin-bottom:1rem;">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div style="margin-bottom:1rem;">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div style="margin-bottom:1.5rem;">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn" style="width:100%;">Send</button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      &copy; 2025 Shaye Hopkins.
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,199 @@
+:root {
+  /* 60-30-10 Rule Palette */
+  --bg-body: #fdfcfb;       /* Warm paper white */
+  --surface: #ffffff;       /* Pure white */
+  --primary: #2d4f3e;       /* Deep Forest Green - Trust/Academic */
+  --primary-light: #e8ede9; /* Soft green wash */
+  --accent: #c07b66;        /* Muted Terra Cotta - Complementary/Action */
+  --accent-hover: #a86552;
+  --text-main: #1a201d;     /* Soft Black */
+  --text-muted: #5e6662;    /* Grey */
+  --border: #e6eae8;
+  
+  --shadow-sm: 0 4px 6px -1px rgba(45, 79, 62, 0.05);
+  --shadow-card: 0 10px 30px -5px rgba(45, 79, 62, 0.06);
+  
+  --radius: 8px; /* Sharper radius for a more professional look */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Proxima Nova', 'Inter', sans-serif;
+  --max-width: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent); }
+
+h1, h2, h3, h4 { 
+  font-family: var(--font-heading); 
+  color: var(--primary);
+  margin: 0 0 0.5em; 
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.2rem); }
+h3 { font-size: 1.4rem; color: var(--text-main); }
+
+p { margin-bottom: 1.5rem; color: var(--text-muted); }
+p.lede { font-size: 1.25rem; line-height: 1.6; color: var(--text-main); font-weight: 400; max-width: 65ch; }
+
+/* Layout */
+.shell { width: min(var(--max-width), 92%); margin: 0 auto; }
+.section { padding: clamp(4rem, 8vw, 6rem) 0; }
+.section.muted { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+/* Header & Nav */
+.site-header {
+  padding: 1.5rem 0;
+  background: rgba(253, 252, 251, 0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.site-header.scrolled { border-bottom-color: var(--border); }
+
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.brand img { height: 44px; display: block; }
+
+.nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
+.nav-links a { 
+  color: var(--text-muted); 
+  font-weight: 500; 
+  font-size: 0.95rem; 
+  position: relative;
+}
+.nav-links a.active, .nav-links a:hover { color: var(--primary); }
+.nav-links a.active::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background: var(--accent);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; justify-content: center; align-items: center;
+  padding: 0.8em 1.6em;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  border: 1px solid var(--primary);
+}
+.btn:hover { background: var(--accent); border-color: var(--accent); color: white; transform: translateY(-1px); }
+
+.btn.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+.btn.secondary:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+
+/* Cards & Grids */
+.grid { display: grid; gap: 2rem; }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+
+.card {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: rgba(45, 79, 62, 0.2); }
+
+/* Pills & Tags */
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1rem 0; }
+.pill {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(192, 123, 102, 0.1);
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+}
+
+/* Lists */
+.list-clean { list-style: none; padding: 0; margin: 0; }
+.list-clean li { 
+  margin-bottom: 0.75rem; 
+  padding-left: 1.5rem; 
+  position: relative; 
+  color: var(--text-muted);
+}
+.list-clean li::before {
+  content: '→';
+  color: var(--accent);
+  position: absolute; left: 0; top: 0;
+  font-weight: bold;
+}
+
+/* Publication List */
+.pub-item {
+  border-left: 3px solid var(--border);
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.2s;
+}
+.pub-item:hover { border-left-color: var(--accent); }
+
+/* Forms */
+input, textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-body);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+input:focus, textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
+label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: var(--primary); }
+
+/* CV Iframe Specifics */
+.cv-container {
+    width: 100%;
+    height: calc(100vh - 140px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-card);
+}
+.cv-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Footer */
+footer { background: var(--primary); color: rgba(255,255,255,0.8); padding: 3rem 0; font-size: 0.95rem; }
+footer a { color: #fff; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.3); }
+footer a:hover { text-decoration-color: #fff; color: #fff; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; } /* Simplified for brevity; usually requires JS toggle */
+  .hero-grid { grid-template-columns: 1fr; }
+  .grid.two { grid-template-columns: 1fr; }
+  
+  /* Mobile Nav Fallback (Simple) */
+  .nav-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem; }
+  .nav-container { flex-direction: column; }
+}
