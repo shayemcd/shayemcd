@@ -1,0 +1,40 @@
+rules_version = '2';
+
+// FitTrack security rules.
+// Only the two Google accounts listed in allowedEmails() can read anything.
+// Each person can only write their own documents.
+//
+// >>> EDIT THE EMAIL LIST BELOW (SETUP.md step 5) <<<
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function allowedEmails() {
+      return [
+        'shaye.mcd@gmail.com',
+        'AKIMS_EMAIL_GOES_HERE@gmail.com'
+      ];
+    }
+
+    function isAllowed() {
+      return request.auth != null && request.auth.token.email in allowedEmails();
+    }
+
+    match /users/{uid} {
+      allow read: if isAllowed();
+      allow write: if isAllowed() && request.auth.uid == uid;
+    }
+
+    match /workouts/{id} {
+      allow read: if isAllowed();
+      allow create: if isAllowed() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if isAllowed() && resource.data.uid == request.auth.uid;
+    }
+
+    match /bodyweight/{id} {
+      allow read: if isAllowed();
+      allow create: if isAllowed() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if isAllowed() && resource.data.uid == request.auth.uid;
+    }
+  }
+}

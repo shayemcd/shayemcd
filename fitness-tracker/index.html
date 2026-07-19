@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FitTrack — Shaye & Akim</title>
+  <meta name="description" content="Shared workout & weight tracker">
+  <meta name="theme-color" content="#141a24">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Loading -->
+  <div id="screen-loading" class="screen">
+    <div class="center-box">
+      <div class="logo-mark">🏋️</div>
+      <p class="muted">Loading…</p>
+    </div>
+  </div>
+
+  <!-- Firebase not configured yet -->
+  <div id="screen-setup" class="screen hidden">
+    <div class="center-box">
+      <div class="logo-mark">🏋️</div>
+      <h1>FitTrack</h1>
+      <p>Almost there — the app isn't connected to Firebase yet.</p>
+      <ol class="setup-steps">
+        <li>Open <strong>SETUP.md</strong> in the GitHub repo</li>
+        <li>Follow the ~5-minute Firebase setup</li>
+        <li>Paste your config into <strong>config.js</strong></li>
+      </ol>
+      <a class="btn btn-primary" href="?demo=1">Try the demo first</a>
+    </div>
+  </div>
+
+  <!-- Signed out -->
+  <div id="screen-signin" class="screen hidden">
+    <div class="center-box">
+      <div class="logo-mark">🏋️</div>
+      <h1>FitTrack</h1>
+      <p class="muted">Workout &amp; weight tracker for Shaye and Akim</p>
+      <button id="btn-signin" class="btn btn-primary">Sign in with Google</button>
+      <p id="signin-error" class="error hidden"></p>
+    </div>
+  </div>
+
+  <!-- Signed in but not on the allowlist -->
+  <div id="screen-unauthorized" class="screen hidden">
+    <div class="center-box">
+      <div class="logo-mark">🔒</div>
+      <h1>Private tracker</h1>
+      <p class="muted">This account isn't on the access list. If that's wrong, add your Google email to <strong>firestore.rules</strong> (see SETUP.md step 5).</p>
+      <button id="btn-signout-unauth" class="btn">Sign out</button>
+    </div>
+  </div>
+
+  <!-- Main app -->
+  <div id="app" class="hidden">
+    <header class="app-header">
+      <span class="app-title">🏋️ FitTrack</span>
+      <span id="demo-badge" class="demo-badge hidden">demo</span>
+      <button id="btn-settings" class="icon-btn" aria-label="Settings">⚙️</button>
+    </header>
+
+    <main id="view"></main>
+
+    <nav class="tabbar">
+      <button class="tab" data-tab="today"><span class="tab-icon">📝</span>Today</button>
+      <button class="tab" data-tab="plan"><span class="tab-icon">🧠</span>Plan</button>
+      <button class="tab" data-tab="partner"><span class="tab-icon">🤝</span>Partner</button>
+      <button class="tab" data-tab="history"><span class="tab-icon">📅</span>History</button>
+      <button class="tab" data-tab="weight"><span class="tab-icon">⚖️</span>Weight</button>
+    </nav>
+  </div>
+
+  <script src="vendor/chart.umd.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
