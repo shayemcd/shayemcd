@@ -1,9 +1,10 @@
 // Settings modal: display name, preferred unit, nutrition goal & target
-// overrides, Fitbit connection, sign out.
+// overrides, theme, Fitbit connection, sign out.
 
 import { el } from '../utils.js';
 import { computeTargets, latestWeightKg } from '../nutrition.js';
 import { isFitbitConfigured, isFitbitConnected, connectFitbit, disconnectFitbit } from '../fitbit.js';
+import { getThemePref, setThemePref } from '../theme.js';
 import { openModal } from './modal.js';
 
 export function openSettings(ctx) {
@@ -49,6 +50,16 @@ export function openSettings(ctx) {
       },
     }, unit === 'kg' ? 'Kilograms (kg)' : 'Pounds (lbs)');
 
+  const themeChip = (pref, label) =>
+    el('button', {
+      class: 'chip' + (getThemePref() === pref ? ' selected' : ''),
+      onclick: e => {
+        setThemePref(pref);
+        [...e.target.parentElement.children].forEach(c => c.classList.remove('selected'));
+        e.target.classList.add('selected');
+      },
+    }, label);
+
   const fitbitSection = () => {
     if (!isFitbitConfigured()) {
       return el('p', { class: 'muted', style: 'font-size:0.78rem; margin-top:14px' },
@@ -74,6 +85,10 @@ export function openSettings(ctx) {
     el('div', { style: 'margin-top:14px' },
       el('label', { class: 'muted', style: 'font-size:0.85rem' }, 'My units (lifts & body weight)'),
       el('div', { class: 'chip-row' }, unitChip('kg'), unitChip('lbs')),
+    ),
+    el('div', { style: 'margin-top:14px' },
+      el('label', { class: 'muted', style: 'font-size:0.85rem' }, 'Appearance'),
+      el('div', { class: 'chip-row' }, themeChip('system', 'System'), themeChip('dark', 'Dark'), themeChip('light', 'Light')),
     ),
     el('div', { style: 'margin-top:14px' },
       el('label', { class: 'muted', style: 'font-size:0.85rem' }, 'Nutrition goal'),

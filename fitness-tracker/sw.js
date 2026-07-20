@@ -1,6 +1,6 @@
 // App-shell service worker. Bump CACHE_VERSION when deploying changes so
 // clients pick up new files.
-const CACHE_VERSION = 'fittrack-v2';
+const CACHE_VERSION = 'fittrack-v3';
 
 const SHELL = [
   './',
@@ -17,6 +17,8 @@ const SHELL = [
   './js/nutrition.js',
   './js/progress.js',
   './js/recap.js',
+  './js/streaks.js',
+  './js/theme.js',
   './js/ai.js',
   './js/fitbit.js',
   './js/demo-store.js',

@@ -35,6 +35,7 @@ export function renderToday(ctx) {
   return el('div', {},
     dateNav(date, actions),
     el('div', { class: 'row', style: 'margin-bottom:12px; flex-wrap:wrap' },
+      streakBadge(ctx),
       dayTypeBadge(workout, save),
       workout.copiedFrom ? el('span', { class: 'badge partner' }, '🤝 partner routine') : null,
       totalKcal ? el('span', { class: 'badge neutral' }, `🔥 ~${totalKcal} kcal`) : null,
@@ -65,6 +66,24 @@ function emptyWorkout(me, date) {
     exercises: [],
     notes: '',
   };
+}
+
+// ---------- streak ----------
+
+// Only shown on the current-day view (browsing past dates shouldn't imply
+// "log today"). helpers.myStreak() already accounts for today being
+// unfinished, so `current` is exactly "the streak you're protecting".
+function streakBadge(ctx) {
+  const { state, helpers } = ctx;
+  if (state.editDate !== todayStr()) return null;
+  const me = helpers.me();
+  const { current } = helpers.myStreak();
+  if (current > 0) {
+    const loggedToday = !!helpers.workoutFor(me.uid, todayStr())?.exercises?.length;
+    return el('span', { class: 'streak-badge' },
+      `🔥 ${current}-day streak${loggedToday ? '' : ' — log today to keep it!'}`);
+  }
+  return el('span', { class: 'streak-badge zero' }, '💪 Log a workout to start your streak');
 }
 
 // ---------- date navigation ----------
@@ -333,7 +352,7 @@ function addExerciseBox(ctx, workout, save) {
     }
     if (!findExercise(q) && !findCardio(q)) {
       list.append(el('div', { class: 'ac-item', onclick: () => customExercise(q, addExercise) },
-        el('span', {}, `Add “${q}” as custom…`),
+        el('span', {}, `Add "${q}" as custom…`),
         el('span', { class: 'muscles' }, 'pick muscles'),
       ));
     }
@@ -354,7 +373,7 @@ function addExerciseBox(ctx, workout, save) {
 function customExercise(name, done) {
   const selected = new Set();
   const close = openModal(
-    el('h3', {}, `“${name}” — which muscles does it work?`),
+    el('h3', {}, `"${name}" — which muscles does it work?`),
     el('div', { class: 'chip-row' },
       Object.entries(GROUPS).map(([key, label]) =>
         el('button', {

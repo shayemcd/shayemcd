@@ -71,6 +71,7 @@ function recapCard(ctx) {
     splitId: me.splitId,
     today: todayStr(),
   });
+  const streak = helpers.myStreak();
 
   const stat = (label, value) =>
     el('div', { class: 'stat' },
@@ -88,6 +89,8 @@ function recapCard(ctx) {
     el('h3', {}, '📊 Your last 7 days'),
     el('div', { class: 'stat-grid' },
       stat('workouts', `${r.workoutsDone}/${r.workoutsPlanned}`),
+      stat('streak', `🔥 ${streak.current}d`),
+      stat('best streak', `${streak.best}d`),
       stat('avg kcal in', r.kcalInAvg != null ? String(r.kcalInAvg) : '—'),
       stat('avg kcal out', r.kcalOutAvg != null ? String(r.kcalOutAvg) : '—'),
       stat('protein target', r.proteinAdherence != null ? `${r.proteinAdherence}%` : '—'),

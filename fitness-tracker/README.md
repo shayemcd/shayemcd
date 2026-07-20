@@ -42,6 +42,11 @@ Firebase.
   moving averages for both of you.
 - **Per-user units** — one of you lifts in kg, the other in lbs; everything is
   converted when viewing the other person's numbers.
+- **Streaks** — a consecutive-day workout streak (current + best) to help
+  keep momentum, shown on Today and in the weekly recap.
+- **Modern, responsive interface** — a proper desktop layout (sidebar nav,
+  wider content) above 900px, the familiar phone layout below it, and a
+  System/Dark/Light theme toggle.
 - **Installable & offline** — "Add to Home Screen" makes it feel like a native
   app; Firestore's offline cache keeps it working with no signal in the gym.
 

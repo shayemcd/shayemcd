@@ -7,12 +7,16 @@ import { detectDayType } from './split.js';
 import { detectPRs } from './progress.js';
 import { computeTargets, latestWeightKg } from './nutrition.js';
 import { completeFitbitAuth, syncFitbit, isFitbitConnected } from './fitbit.js';
+import { workoutStreak } from './streaks.js';
+import { initTheme } from './theme.js';
 import { renderToday } from './views/today.js';
 import { renderPlan } from './views/plan.js';
 import { renderMeals } from './views/meals.js';
 import { renderHistory } from './views/history.js';
 import { renderWeight } from './views/weight.js';
 import { openSettings } from './views/settings.js';
+
+initTheme();
 
 const params = new URLSearchParams(location.search);
 const DEMO = params.has('demo') || !configReady();
@@ -46,6 +50,8 @@ const helpers = {
   bodyweightKg: () => latestWeightKg(state.weights, state.user?.uid) || 75,
   targets: () => computeTargets(helpers.me(), latestWeightKg(state.weights, state.user?.uid)),
   watchFor: (uid, date) => state.watch.find(w => w.uid === uid && w.date === date) || null,
+  // Current/best consecutive-day workout streak, for the current user.
+  myStreak: () => workoutStreak(state.workouts, state.user?.uid, todayStr()),
   // My most recent logged weight for an exercise name, in my unit.
   lastWeightFor: (exerciseName) => {
     const unit = helpers.myUnit();
@@ -216,6 +222,10 @@ function render() {
 
   const view = document.getElementById('view');
   view.replaceChildren(viewRenderers[state.tab]({ state, actions, helpers }));
+  // Restart the fade-in animation on every render (tab switch or data update).
+  view.classList.remove('view-enter');
+  void view.offsetWidth;
+  view.classList.add('view-enter');
 }
 
 // ---------- profile bootstrap ----------
