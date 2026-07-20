@@ -12,7 +12,7 @@ service cloud.firestore {
     function allowedEmails() {
       return [
         'shaye.mcd@gmail.com',
-        'AKIMS_EMAIL_GOES_HERE@gmail.com'
+        'akeemhopkins60@gmail.com'
       ];
     }
 

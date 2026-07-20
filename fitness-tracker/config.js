@@ -6,12 +6,12 @@
 // enforced by the Firestore security rules, not by these keys.
 // ============================================================
 export const firebaseConfig = {
-  apiKey: "PASTE_ME",
-  authDomain: "PASTE_ME",
-  projectId: "PASTE_ME",
-  storageBucket: "PASTE_ME",
-  messagingSenderId: "PASTE_ME",
-  appId: "PASTE_ME",
+  apiKey: "AIzaSyDeRcrD7tMefZK_2vKay61VIuFV0mrYDTo",
+  authDomain: "fittrack-954c3.firebaseapp.com",
+  projectId: "fittrack-954c3",
+  storageBucket: "fittrack-954c3.firebasestorage.app",
+  messagingSenderId: "359303332323",
+  appId: "1:359303332323:web:bf1e47ce7a00ecd4ade0d6",
 };
 
 export function configReady() {
