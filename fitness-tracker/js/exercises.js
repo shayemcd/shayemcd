@@ -145,6 +145,40 @@ const DB = [
 
 export const EXERCISES = DB.map(([name, primary, secondary]) => ({ name, primary, secondary }));
 
+// Cardio activities: logged in minutes rather than sets/reps.
+// MET values are used for calorie-burn estimates (js/energy.js).
+export const CARDIO = [
+  { name: 'Treadmill Run', met: 8.3, cardio: true },
+  { name: 'Incline Walk', met: 5.0, cardio: true },
+  { name: 'Stationary Bike', met: 6.8, cardio: true },
+  { name: 'Rowing Machine', met: 7.0, cardio: true },
+  { name: 'Elliptical', met: 5.0, cardio: true },
+  { name: 'Stair Climber', met: 9.0, cardio: true },
+  { name: 'Jump Rope', met: 11.0, cardio: true },
+  { name: 'Stretching / Cool-down', met: 2.3, cardio: true },
+];
+
+export function findCardio(name) {
+  const n = String(name).trim().toLowerCase();
+  return CARDIO.find(c => c.name.toLowerCase() === n) || null;
+}
+
+// Curated ordered picks per muscle group for generated plans: weighted/
+// machine-based movements, compounds first. Core list feeds the "abs" slot.
+export const PLAN_PICKS = {
+  chest: ['Bench Press', 'Incline Dumbbell Press', 'Machine Chest Press', 'Cable Fly'],
+  back: ['Lat Pulldown', 'Seated Cable Row', 'Barbell Row', 'Machine Row'],
+  shoulders: ['Seated Dumbbell Press', 'Lateral Raise', 'Machine Shoulder Press', 'Rear Delt Fly'],
+  biceps: ['EZ-Bar Curl', 'Dumbbell Curl', 'Cable Curl', 'Hammer Curl'],
+  triceps: ['Tricep Pushdown', 'Overhead Tricep Extension', 'Skull Crusher', 'Close-Grip Bench Press'],
+  forearms: ['Reverse Curl', 'Wrist Curl'],
+  quads: ['Squat', 'Leg Press', 'Leg Extension', 'Bulgarian Split Squat'],
+  hamstrings: ['Romanian Deadlift', 'Seated Leg Curl', 'Lying Leg Curl', 'Good Morning'],
+  glutes: ['Hip Thrust', 'Cable Pull-Through', 'Glute Kickback', 'Hip Abduction Machine'],
+  calves: ['Standing Calf Raise', 'Seated Calf Raise'],
+  core: ['Cable Crunch', 'Hanging Knee Raise', 'Plank', 'Ab Wheel Rollout', 'Russian Twist', 'Crunch'],
+};
+
 const byLowerName = new Map(EXERCISES.map(e => [e.name.toLowerCase(), e]));
 
 // Look up a known exercise by name (case-insensitive). Returns null for custom exercises.
@@ -155,6 +189,7 @@ export function findExercise(name) {
 // Muscle groups for an exercise entry as stored in a workout. Custom exercises
 // carry their own primary/secondary arrays chosen by the user.
 export function musclesFor(exercise) {
+  if (exercise.cardio) return { primary: [], secondary: [] };
   const known = findExercise(exercise.name);
   if (known) return { primary: known.primary, secondary: known.secondary };
   return {
@@ -163,13 +198,13 @@ export function musclesFor(exercise) {
   };
 }
 
-// Prefix-and-substring autocomplete over the database.
+// Prefix-and-substring autocomplete over strength + cardio entries.
 export function searchExercises(query, limit = 8) {
   const q = String(query).trim().toLowerCase();
   if (!q) return [];
   const starts = [];
   const contains = [];
-  for (const e of EXERCISES) {
+  for (const e of [...EXERCISES, ...CARDIO]) {
     const n = e.name.toLowerCase();
     if (n.startsWith(q)) starts.push(e);
     else if (n.includes(q)) contains.push(e);

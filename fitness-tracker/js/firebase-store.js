@@ -6,9 +6,12 @@
 
 import { firebaseConfig } from '../config.js';
 
-const SDK = 'https://www.gstatic.com/firebasejs/10.12.2';
+const SDK = 'https://www.gstatic.com/firebasejs/11.10.0';
 
-let auth, db, fs; // fs = firestore module namespace
+let app, auth, db, fs; // fs = firestore module namespace
+
+export function firebaseApp() { return app; }
+export { SDK };
 
 export const firebaseStore = {
   kind: 'firebase',
@@ -21,7 +24,7 @@ export const firebaseStore = {
     ]);
     fs = fsMod;
     this._auth = authMod;
-    const app = initializeApp(firebaseConfig);
+    app = initializeApp(firebaseConfig);
     auth = authMod.getAuth(app);
     // Offline cache so the app works in the gym with bad signal.
     db = fs.initializeFirestore(app, {
@@ -94,5 +97,45 @@ export const firebaseStore = {
 
   async deleteWeight(id) {
     await fs.deleteDoc(fs.doc(db, 'bodyweight', id));
+  },
+
+  subscribeMeals(cb, onError) {
+    const q = fs.query(fs.collection(db, 'meals'), fs.orderBy('date', 'desc'), fs.limit(400));
+    return fs.onSnapshot(q,
+      snap => cb(snap.docs.map(d => ({ id: d.id, ...d.data() }))),
+      onError);
+  },
+
+  async saveMeal(meal) {
+    await fs.setDoc(fs.doc(db, 'meals', meal.id), meal);
+  },
+
+  async deleteMeal(id) {
+    await fs.deleteDoc(fs.doc(db, 'meals', id));
+  },
+
+  subscribeMealBank(cb, onError) {
+    return fs.onSnapshot(fs.collection(db, 'mealBank'),
+      snap => cb(snap.docs.map(d => ({ id: d.id, ...d.data() }))),
+      onError);
+  },
+
+  async saveBankMeal(entry) {
+    await fs.setDoc(fs.doc(db, 'mealBank', entry.id), entry, { merge: true });
+  },
+
+  async deleteBankMeal(id) {
+    await fs.deleteDoc(fs.doc(db, 'mealBank', id));
+  },
+
+  subscribeWatch(cb, onError) {
+    const q = fs.query(fs.collection(db, 'watch'), fs.orderBy('date', 'desc'), fs.limit(200));
+    return fs.onSnapshot(q,
+      snap => cb(snap.docs.map(d => ({ id: d.id, ...d.data() }))),
+      onError);
+  },
+
+  async saveWatch(entry) {
+    await fs.setDoc(fs.doc(db, 'watch', entry.id), entry, { merge: true });
   },
 };

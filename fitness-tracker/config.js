@@ -17,3 +17,8 @@ export const firebaseConfig = {
 export function configReady() {
   return firebaseConfig.apiKey !== "PASTE_ME";
 }
+
+// Optional: Fitbit auto-sync. Register a free "Personal" app at
+// dev.fitbit.com (see SETUP.md) and paste its OAuth 2.0 Client ID here.
+// Leave as-is to skip Fitbit and enter watch data manually.
+export const fitbitClientId = "OPTIONAL_FITBIT_CLIENT_ID";

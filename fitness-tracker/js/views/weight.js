@@ -1,6 +1,8 @@
-// Weight tab: daily body-weight entry + shared trend chart (Chart.js).
+// Weight tab: daily body-weight entry, watch data (sleep / calories out),
+// and the shared trend chart (Chart.js).
 
 import { el, todayStr, fmtDate, convertWeight } from '../utils.js';
+import { isFitbitConfigured, isFitbitConnected } from '../fitbit.js';
 
 export function renderWeight(ctx) {
   const { state, helpers, actions } = ctx;
@@ -39,6 +41,7 @@ export function renderWeight(ctx) {
       ),
       todayEntry ? el('p', { class: 'muted', style: 'font-size:0.82rem; margin:8px 0 0' }, 'Logged for today — save again to correct it.') : null,
     ),
+    watchCard(ctx, me),
     el('div', { class: 'card' },
       el('h3', {}, `Trend (${myUnit}, 7-day average)`),
       el('div', { class: 'chart-wrap' }, canvas),
@@ -62,6 +65,57 @@ export function renderWeight(ctx) {
   // Chart.js renders after the canvas is attached.
   requestAnimationFrame(() => drawChart(canvas, state.weights, me, partner, myUnit));
   return root;
+}
+
+// Watch data for today: synced from Fitbit or entered manually (Apple Watch
+// wearers copy the numbers from their phone's Health/Fitness app).
+function watchCard(ctx, me) {
+  const { helpers, actions } = ctx;
+  const date = todayStr();
+  const entry = helpers.watchFor(me.uid, date);
+
+  const sleepIn = el('input', {
+    type: 'number', inputmode: 'decimal', step: '0.1', min: '0', placeholder: 'hrs',
+    value: entry?.sleepMinutes ? Math.round(entry.sleepMinutes / 6) / 10 : '',
+  });
+  const kcalIn = el('input', {
+    type: 'number', inputmode: 'numeric', min: '0', placeholder: 'kcal',
+    value: entry?.caloriesOut ?? '',
+  });
+  const stepsIn = el('input', {
+    type: 'number', inputmode: 'numeric', min: '0', placeholder: 'steps',
+    value: entry?.steps ?? '',
+  });
+
+  const saveWatch = () => {
+    actions.saveWatch({
+      id: `${me.uid}_${date}`,
+      uid: me.uid,
+      date,
+      sleepMinutes: sleepIn.value === '' ? null : Math.round(Number(sleepIn.value) * 60),
+      caloriesOut: kcalIn.value === '' ? null : Number(kcalIn.value),
+      steps: stepsIn.value === '' ? null : Number(stepsIn.value),
+      source: 'manual',
+    });
+    actions.toast('Watch data saved');
+  };
+
+  const fitbitNote = isFitbitConfigured()
+    ? (isFitbitConnected()
+        ? el('p', { class: 'muted', style: 'font-size:0.78rem; margin:8px 0 0' }, '⌚ Fitbit connected — syncs on app open. Manual edits are kept too.')
+        : el('p', { class: 'muted', style: 'font-size:0.78rem; margin:8px 0 0' }, '⌚ Have a Fitbit? Connect it in ⚙ Settings for automatic sync.'))
+    : el('p', { class: 'muted', style: 'font-size:0.78rem; margin:8px 0 0' }, '⌚ Apple Watch: copy today\'s numbers from the Fitness app. Fitbit auto-sync can be enabled in SETUP.md.');
+
+  return el('div', { class: 'card' },
+    el('h3', {}, `Today's watch data${entry?.source === 'fitbit' ? ' · synced' : ''}`),
+    el('div', { class: 'compact-editor' },
+      el('div', { class: 'compact-field grow' }, el('span', { class: 'compact-label' }, 'Sleep (h)'), sleepIn),
+      el('div', { class: 'compact-field grow' }, el('span', { class: 'compact-label' }, 'Burned (kcal)'), kcalIn),
+      el('div', { class: 'compact-field grow' }, el('span', { class: 'compact-label' }, 'Steps'), stepsIn),
+    ),
+    el('button', { class: 'btn btn-small', style: 'margin-top:10px', onclick: saveWatch }, 'Save watch data'),
+    fitbitNote,
+  );
 }
 
 function series(weights, uid, unit) {

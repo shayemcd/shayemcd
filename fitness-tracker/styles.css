@@ -257,6 +257,93 @@ main#view {
   .modal { border-radius: 16px; }
 }
 
+/* ---------- v2: compact set editor & steppers ---------- */
+.compact-editor { display: flex; gap: 10px; margin-top: 6px; }
+.compact-field { display: flex; flex-direction: column; gap: 4px; }
+.compact-field.grow { flex: 1; }
+.compact-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.stepper button {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  padding: 8px 13px;
+  cursor: pointer;
+}
+.stepper-value { min-width: 24px; text-align: center; font-weight: 700; }
+
+.kcal-chip {
+  background: rgba(63, 174, 106, 0.15);
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------- v2: rest timer ---------- */
+.timer-chip {
+  position: fixed;
+  bottom: calc(var(--tabbar-h) + 18px);
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-raised);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 8px 12px;
+  z-index: 55;
+  font-size: 1rem;
+}
+.timer-chip.done { background: var(--accent); color: #fff; }
+
+/* ---------- v2: 7-day plan ---------- */
+.week-day.rest { opacity: 0.65; }
+.plan-lines { margin-top: 8px; }
+.plan-line { font-size: 0.88rem; padding: 3px 0; }
+.flag-card { border-color: #b98a2e; }
+
+/* ---------- v2: meals & macros ---------- */
+.macro-row { margin-bottom: 8px; }
+.macro-row:last-child { margin-bottom: 0; }
+.bar {
+  height: 8px;
+  background: var(--bg-input);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 3px;
+}
+.bar-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+.bar-fill.over { background: var(--red); }
+.over { color: var(--red); }
+.meal-thumb { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; }
+.meal-thumb-lg { width: 100%; max-height: 180px; border-radius: 12px; object-fit: cover; margin-bottom: 10px; }
+
+/* ---------- v2: recap ---------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.stat { text-align: center; }
+.stat-value { font-size: 1.05rem; font-weight: 700; }
+.stat-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
 .toast {
   position: fixed;
   bottom: calc(var(--tabbar-h) + 18px);

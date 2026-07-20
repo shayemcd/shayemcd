@@ -67,6 +67,40 @@ once; after that everything just works.
 6. On your phone's browser menu, choose **Add to Home Screen** — the app
    installs like a native app and works offline in the gym.
 
+## 8. Enable AI meal estimation (one toggle)
+
+The Meals tab estimates calories/macros from a photo or a text description
+using Gemini via **Firebase AI Logic** (free tier, no key to manage):
+
+1. Firebase console → left sidebar **Build → AI Logic** (sometimes shown as
+   "Firebase AI Logic" / "Vertex AI in Firebase") → **Get started**.
+2. Choose the **Gemini Developer API** option (the free one) and confirm.
+3. That's it — the app picks it up automatically. Test: Meals tab →
+   ✏️ Describe → type "2 scrambled eggs on toast" → an estimate should appear.
+
+## 9. Optional: Fitbit auto-sync (for whoever wears a Fitbit)
+
+Apple Watch data can't be read by web apps (Apple restricts Health to native
+iOS apps) — the Apple Watch wearer enters sleep/calories manually on the
+Weight tab (10 seconds a day). The Fitbit wearer can get automatic sync:
+
+1. Go to [dev.fitbit.com/apps/new](https://dev.fitbit.com/apps/new) (free) and register an app:
+   - Application type: **Personal**
+   - Redirect URL: `https://shayemcd.github.io/fitness-tracker/`
+   - OAuth 2.0 Application Type: **Client**
+   - Everything else can be placeholder text/URLs.
+2. Copy the **OAuth 2.0 Client ID** into `config.js` (`fitbitClientId`).
+3. In the app: ⚙ Settings → **Connect Fitbit** → approve. Sleep, calories
+   burned, and steps then sync each time the app opens.
+
+## Upgrading from v1? One required step
+
+v2 added meals, the meal bank, and watch data — which need **new Firestore
+rules**. Re-paste the current contents of [`firestore.rules`](firestore.rules)
+into Firebase console → Firestore Database → Rules (keeping your two real
+emails in the allowlist) and hit **Publish**, or meal logging will fail with
+a permissions error.
+
 ## Want to try it before doing any of this?
 
 Open the app with `?demo=1` (or click "Try the demo first" on the setup

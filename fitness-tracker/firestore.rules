@@ -36,5 +36,21 @@ service cloud.firestore {
       allow create: if isAllowed() && request.resource.data.uid == request.auth.uid;
       allow update, delete: if isAllowed() && resource.data.uid == request.auth.uid;
     }
+
+    // Meals are collaborative: either partner can create/edit shared meals
+    // and adjust their own portion, so writes are open to both allowed users.
+    match /meals/{id} {
+      allow read, write: if isAllowed();
+    }
+
+    match /mealBank/{id} {
+      allow read, write: if isAllowed();
+    }
+
+    match /watch/{id} {
+      allow read: if isAllowed();
+      allow create: if isAllowed() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if isAllowed() && resource.data.uid == request.auth.uid;
+    }
   }
 }

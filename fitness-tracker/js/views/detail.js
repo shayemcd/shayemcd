@@ -4,9 +4,10 @@
 
 import { el, fmtDate, convertWeight } from '../utils.js';
 import { musclesFor, GROUPS } from '../exercises.js';
+import { exerciseTrend } from '../progress.js';
 import { openModal } from './modal.js';
 
-export function openWorkoutDetail(workout, { ownerProfile, viewerUnit, onCopy, onEdit, onDelete }) {
+export function openWorkoutDetail(workout, { ownerProfile, viewerUnit, onCopy, onEdit, onDelete, trendWorkouts }) {
   const unit = workout.unit || 'kg';
   const showBoth = unit !== viewerUnit;
 
@@ -26,13 +27,19 @@ export function openWorkoutDetail(workout, { ownerProfile, viewerUnit, onCopy, o
     workout.copiedFrom ? el('p', { class: 'muted', style: 'font-size:0.85rem' }, '🤝 Same routine as partner') : null,
     ...(workout.exercises || []).map(ex => {
       const m = musclesFor(ex);
-      return el('div', { class: 'card exercise-card' },
+      const canTrend = !ex.cardio && trendWorkouts?.length;
+      return el('div', {
+        class: 'card exercise-card',
+        ...(canTrend ? { style: 'cursor:pointer', onclick: () => openExerciseTrend(ex.name, trendWorkouts, viewerUnit) } : {}),
+      },
         el('div', { class: 'exercise-head' },
-          el('span', { class: 'exercise-name' }, ex.name),
-          el('span', { class: 'exercise-muscles' }, m.primary.map(g => GROUPS[g] || g).join(' · ')),
+          el('span', { class: 'exercise-name' }, ex.name, canTrend ? ' 📈' : ''),
+          el('span', { class: 'exercise-muscles' }, ex.cardio ? 'cardio' : m.primary.map(g => GROUPS[g] || g).join(' · ')),
         ),
         el('div', { class: 'muted', style: 'font-size:0.9rem' },
-          (ex.sets || []).map((s, i) => `Set ${i + 1}: ${s.reps || '—'} × ${fmtW(s.weight)}`).join('   ·   '),
+          ex.cardio
+            ? `${ex.minutes || '—'} min`
+            : (ex.sets || []).map((s, i) => `Set ${i + 1}: ${s.reps || '—'} × ${fmtW(s.weight)}`).join('   ·   '),
         ),
       );
     }),
@@ -44,6 +51,44 @@ export function openWorkoutDetail(workout, { ownerProfile, viewerUnit, onCopy, o
     ),
   );
   return close;
+}
+
+// Progression chart for one exercise (top-set weight over time).
+export function openExerciseTrend(name, workouts, unit) {
+  const points = exerciseTrend(name, workouts, unit);
+  const canvas = el('canvas');
+  openModal(
+    el('h3', {}, `📈 ${name}`),
+    points.length < 2
+      ? el('p', { class: 'muted' }, 'Log this exercise a few more times to see a trend.')
+      : el('div', { class: 'chart-wrap' }, canvas),
+  );
+  if (points.length >= 2 && window.Chart) {
+    requestAnimationFrame(() => {
+      new Chart(canvas, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: `Top set (${unit})`,
+            data: points.map(p => ({ x: p.date, y: p.weight })),
+            borderColor: '#e07b39',
+            backgroundColor: 'transparent',
+            pointRadius: 3,
+            tension: 0.25,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { type: 'category', ticks: { color: '#8b98ab', maxTicksLimit: 6 }, grid: { color: '#2a3547' } },
+            y: { ticks: { color: '#8b98ab' }, grid: { color: '#2a3547' } },
+          },
+          plugins: { legend: { labels: { color: '#e8edf4' } } },
+        },
+      });
+    });
+  }
 }
 
 export function workoutSummary(workout) {

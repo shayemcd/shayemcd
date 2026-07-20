@@ -4,9 +4,12 @@ import { configReady } from '../config.js';
 import { demoStore } from './demo-store.js';
 import { el, todayStr, convertWeight } from './utils.js';
 import { detectDayType } from './split.js';
+import { detectPRs } from './progress.js';
+import { computeTargets, latestWeightKg } from './nutrition.js';
+import { completeFitbitAuth, syncFitbit, isFitbitConnected } from './fitbit.js';
 import { renderToday } from './views/today.js';
 import { renderPlan } from './views/plan.js';
-import { renderPartner } from './views/partner.js';
+import { renderMeals } from './views/meals.js';
 import { renderHistory } from './views/history.js';
 import { renderWeight } from './views/weight.js';
 import { openSettings } from './views/settings.js';
@@ -20,6 +23,9 @@ const state = {
   profiles: [],        // users collection
   workouts: [],        // both users, date desc
   weights: [],         // both users, date desc
+  meals: [],           // both users, date desc
+  mealBank: [],
+  watch: [],           // both users, date desc
   tab: 'today',
   editDate: todayStr(), // date the Today tab is editing
   unauthorized: false,
@@ -36,6 +42,10 @@ const helpers = {
   workoutFor: (uid, date) => state.workouts.find(w => w.uid === uid && w.date === date) || null,
   myWorkouts: () => state.workouts.filter(w => w.uid === state.user?.uid),
   partnerWorkouts: () => state.workouts.filter(w => w.uid !== state.user?.uid),
+  // Latest bodyweight in kg (for calorie-burn estimates), profile fallback.
+  bodyweightKg: () => latestWeightKg(state.weights, state.user?.uid) || 75,
+  targets: () => computeTargets(helpers.me(), latestWeightKg(state.weights, state.user?.uid)),
+  watchFor: (uid, date) => state.watch.find(w => w.uid === uid && w.date === date) || null,
   // My most recent logged weight for an exercise name, in my unit.
   lastWeightFor: (exerciseName) => {
     const unit = helpers.myUnit();
@@ -73,6 +83,15 @@ const actions = {
       w.dayType = detectDayType(w.exercises);
       w.dayTypeSource = 'auto';
     }
+    // Celebrate new PRs (once per exercise per session, to survive re-saves).
+    const history = helpers.myWorkouts().filter(x => x.id !== w.id);
+    for (const pr of detectPRs(w, history)) {
+      const key = `${pr.name}:${pr.weightKg.toFixed(1)}`;
+      if (!prToasted.has(key)) {
+        prToasted.add(key);
+        actions.toast(`🎉 New PR — ${pr.name}!`);
+      }
+    }
     await state.store.saveWorkout(w);
   },
 
@@ -90,6 +109,26 @@ const actions = {
 
   async saveProfile(p) {
     await state.store.saveProfile(p);
+  },
+
+  async saveMeal(meal) {
+    await state.store.saveMeal(meal);
+  },
+
+  async deleteMeal(id) {
+    await state.store.deleteMeal(id);
+  },
+
+  async saveBankMeal(entry) {
+    await state.store.saveBankMeal(entry);
+  },
+
+  async deleteBankMeal(id) {
+    await state.store.deleteBankMeal(id);
+  },
+
+  async saveWatch(entry) {
+    await state.store.saveWatch(entry);
   },
 
   // Copy a partner workout into my log for `date`, pre-filling weights with
@@ -111,14 +150,16 @@ const actions = {
       dayTypeSource: src.dayTypeSource === 'manual' ? 'manual' : 'auto',
       copiedFrom: src.id,
       notes: '',
-      exercises: (src.exercises || []).map(ex => ({
-        name: ex.name,
-        ...(ex.primary ? { primary: ex.primary, secondary: ex.secondary || [] } : {}),
-        sets: (ex.sets || []).map(s => ({
-          reps: s.reps ?? '',
-          weight: helpers.lastWeightFor(ex.name) ?? '',
-        })),
-      })),
+      exercises: (src.exercises || []).map(ex => ex.cardio
+        ? { name: ex.name, cardio: true, minutes: ex.minutes ?? '', sets: [] }
+        : {
+            name: ex.name,
+            ...(ex.primary ? { primary: ex.primary, secondary: ex.secondary || [] } : {}),
+            sets: (ex.sets || []).map(s => ({
+              reps: s.reps ?? '',
+              weight: helpers.lastWeightFor(ex.name) ?? '',
+            })),
+          }),
     };
     await actions.saveWorkout(copy);
     actions.toast(`Copied to your log — now set your weights`);
@@ -154,10 +195,12 @@ function currentScreen() {
 
 // ---------- render ----------
 
+const prToasted = new Set();
+
 const viewRenderers = {
   today: renderToday,
   plan: renderPlan,
-  partner: renderPartner,
+  meals: renderMeals,
   history: renderHistory,
   weight: renderWeight,
 };
@@ -189,6 +232,7 @@ async function ensureProfile() {
     unit: 'kg',
     color: COLORS[profiles.length % COLORS.length],
     splitId: 'pairs5',
+    goal: 'maintain',
   });
 }
 
@@ -253,6 +297,25 @@ async function main() {
         state.weights = weights;
         render();
       }, onSubError);
+      state.store.subscribeMeals(meals => {
+        state.meals = meals;
+        render();
+      }, onSubError);
+      state.store.subscribeMealBank(bank => {
+        state.mealBank = bank;
+        render();
+      }, onSubError);
+      state.store.subscribeWatch(watch => {
+        state.watch = watch;
+        render();
+      }, onSubError);
+      // Fitbit: finish a pending OAuth redirect, then pull the latest data.
+      completeFitbitAuth()
+        .then(justConnected => {
+          if (justConnected) actions.toast('⌚ Fitbit connected');
+          if (isFitbitConnected()) syncFitbit(user.uid, e => state.store.saveWatch(e));
+        })
+        .catch(e => console.warn('Fitbit auth', e));
     }
     render();
   });
