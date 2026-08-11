@@ -1,90 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DJPDYWB2Y3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-DJPDYWB2Y3');
-  </script>
-
-
   <meta charset="utf-8">
-  <script type="text/javascript">
-  var _iub = _iub || [];
-  _iub.csConfiguration = {"siteId":4355421,"cookiePolicyId":72273041,"lang":"en","storage":{"useSiteId":true}};
-  </script>
-  <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/4355421.js"></script>
-  <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
-  <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Page title is also set from data/profile.json at load time -->
   <title>Contact · Shaye Hopkins</title>
+  <meta name="description" content="Get in touch with Shaye Hopkins, behavioral scientist.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="assets/sh-logo.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="icon" type="image/png" href="./assets/images/sh-logo.png">
 </head>
-<body>
+<body data-page-title="Contact">
 
   <header class="site-header">
-    <div class="shell nav-container">
-      <a class="brand" href="index.html"><img src="assets/main-logo.png" alt="Shaye Hopkins Logo"></a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="portfolio.html">Research</a></li>
-          <li><a href="bio.html">Bio & CV</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+    <nav class="shell nav-container site-nav" aria-label="Main navigation">
+      <a class="brand nav-name" href="./index.html" id="nav-name"><img src="./assets/images/main-logo.png" alt="Shaye Hopkins Logo"></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./research.html">Research</a></li>
+        <li><a href="./cv.html">CV</a></li>
+        <li><a href="./contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-    <section class="section">
-      <div class="shell grid two" style="align-items: start;">
-        
+  <main id="top">
+    <section id="contact" class="section">
+      <div class="shell grid two contact-grid">
         <div>
           <span class="pill">Get in Touch</span>
-          <h1>Let's connect</h1>
-          <p class="lede">I’m always open to research collaborations, applied partnerships, or just connecting. Feel free to reach out!</p>
-          
-          <div class="card" style="margin-top:2rem; background: var(--primary-light); border:none;">
+          <h2>Let's connect</h2>
+          <p class="lede">I'm always open to research collaborations, applied partnerships, or just connecting. Feel free to reach out!</p>
+
+          <div class="card contact-channels">
             <h3>Other Channels</h3>
-            <a href="https://www.linkedin.com/in/shaye-hopkins/" target="_blank" style="font-weight:600; color:var(--primary);">Connect on LinkedIn &rarr;</a>
+            <a href="https://www.linkedin.com/in/shaye-hopkins/" target="_blank">Connect on LinkedIn &rarr;</a>
           </div>
         </div>
 
         <div class="card">
           <form action="https://formspree.io/f/mblnnqdr" method="POST">
-            <div style="margin-bottom:1rem;">
+            <div class="field">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" required>
             </div>
-            <div style="margin-bottom:1rem;">
+            <div class="field">
               <label for="email">Email</label>
               <input type="email" id="email" name="email" required>
             </div>
-            <div style="margin-bottom:1.5rem;">
+            <div class="field">
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
-            <button type="submit" class="btn" style="width:100%;">Send</button>
+            <button type="submit" class="btn btn-block">Send</button>
           </form>
         </div>
-
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="shell">
-      &copy; 2025 Shaye Hopkins.
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <div id="footer-name"></div>
+      <div>
+        <a href="https://www.linkedin.com/in/shaye-hopkins/">LinkedIn</a> &middot;
+        <a href="mailto:shaye.mcd@gmail.com">Email</a>
+      </div>
     </div>
   </footer>
+
+  <div id="cookie-notice" class="cookie-notice" hidden>
+    <p>This site uses cookies for basic analytics.</p>
+    <button type="button" data-cookie-accept>OK</button>
+  </div>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/site-chrome.js"></script>
+  <script src="./js/cookie-notice.js"></script>
 </body>
 </html>

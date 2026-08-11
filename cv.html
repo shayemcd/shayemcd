@@ -4,55 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Page title is also set from data/profile.json at load time -->
-  <title>Shaye Hopkins · Behavioral Researcher</title>
-  <meta name="description" content="Shaye Hopkins is a behavioral scientist studying belief formation, trust, and decision-making.">
+  <title>CV · Shaye Hopkins</title>
+  <meta name="description" content="Curriculum vitae for Shaye Hopkins, behavioral scientist.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="icon" type="image/png" href="./assets/images/sh-logo.png">
 </head>
-<body>
+<body data-page-title="CV">
 
   <header class="site-header">
     <nav class="shell nav-container site-nav" aria-label="Main navigation">
       <a class="brand nav-name" href="./index.html" id="nav-name"><img src="./assets/images/main-logo.png" alt="Shaye Hopkins Logo"></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <ul class="nav-links">
-        <li><a href="./index.html" class="active">Home</a></li>
+        <li><a href="./index.html">Home</a></li>
         <li><a href="./research.html">Research</a></li>
-        <li><a href="./cv.html">CV</a></li>
+        <li><a href="./cv.html" class="active">CV</a></li>
         <li><a href="./contact.html">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <main id="top">
-    <!-- Hero and About are rendered from data/profile.json by js/profile.js; Research Focus
-         from data/ongoing_projects.json by js/ongoing_projects.js. Do not hardcode content
-         here: edit the JSON files instead. A section with no data hides itself automatically. -->
-
-    <section id="hero" class="section">
-      <div class="shell">
-        <div id="hero-container"></div>
+    <section id="cv" class="section">
+      <div class="shell cv-intro">
+        <h2>Curriculum Vitae</h2>
+        <p>Scroll to view, or open in a new tab from the link below.</p>
       </div>
-    </section>
-
-    <section id="research" class="section muted" hidden>
       <div class="shell">
-        <div class="section-intro">
-          <h2>Research Focus</h2>
-          <p>My research encompasses topics including misinformation reduction, financial well-being, and sustainability.</p>
+        <div class="cv-container">
+          <iframe src="https://docs.google.com/gview?embedded=true&url=https://docs.google.com/document/d/1koAxQyx4TrLzmpDDopeih1BFsthTo3ipjYuglOgTZDs/export?format=pdf" title="Shaye Hopkins CV">
+            <p>Your browser does not support iframes. <a href="https://docs.google.com/document/d/1koAxQyx4TrLzmpDDopeih1BFsthTo3ipjYuglOgTZDs/export?format=pdf">Open the CV</a>.</p>
+          </iframe>
         </div>
-        <div id="projects-container" class="grid three"></div>
-      </div>
-    </section>
-
-    <section id="about" class="section" hidden>
-      <div class="shell">
-        <span class="pill">About</span>
-        <h2>About Me</h2>
-        <div id="about-container"></div>
       </div>
     </section>
   </main>
@@ -75,7 +61,5 @@
   <script src="./js/utils.js"></script>
   <script src="./js/site-chrome.js"></script>
   <script src="./js/cookie-notice.js"></script>
-  <script src="./js/profile.js"></script>
-  <script src="./js/ongoing_projects.js"></script>
 </body>
 </html>

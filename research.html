@@ -4,23 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Page title is also set from data/profile.json at load time -->
-  <title>Shaye Hopkins · Behavioral Researcher</title>
-  <meta name="description" content="Shaye Hopkins is a behavioral scientist studying belief formation, trust, and decision-making.">
+  <title>Research · Shaye Hopkins</title>
+  <meta name="description" content="Research focus, publications, working papers, and popular press by Shaye Hopkins, a behavioral scientist studying belief formation, trust, and decision-making.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="icon" type="image/png" href="./assets/images/sh-logo.png">
 </head>
-<body>
+<body data-page-title="Research">
 
   <header class="site-header">
     <nav class="shell nav-container site-nav" aria-label="Main navigation">
       <a class="brand nav-name" href="./index.html" id="nav-name"><img src="./assets/images/main-logo.png" alt="Shaye Hopkins Logo"></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <ul class="nav-links">
-        <li><a href="./index.html" class="active">Home</a></li>
-        <li><a href="./research.html">Research</a></li>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./research.html" class="active">Research</a></li>
         <li><a href="./cv.html">CV</a></li>
         <li><a href="./contact.html">Contact</a></li>
       </ul>
@@ -28,17 +28,11 @@
   </header>
 
   <main id="top">
-    <!-- Hero and About are rendered from data/profile.json by js/profile.js; Research Focus
-         from data/ongoing_projects.json by js/ongoing_projects.js. Do not hardcode content
-         here: edit the JSON files instead. A section with no data hides itself automatically. -->
+    <!-- Every section below is rendered from a data/*.json file by its js/*.js module.
+         Do not hardcode repeatable content here: edit the JSON files instead.
+         A section with no data (missing/empty JSON) hides itself automatically. -->
 
-    <section id="hero" class="section">
-      <div class="shell">
-        <div id="hero-container"></div>
-      </div>
-    </section>
-
-    <section id="research" class="section muted" hidden>
+    <section id="research" class="section" hidden>
       <div class="shell">
         <div class="section-intro">
           <h2>Research Focus</h2>
@@ -48,11 +42,25 @@
       </div>
     </section>
 
-    <section id="about" class="section" hidden>
+    <section id="publications" class="section muted" hidden>
       <div class="shell">
-        <span class="pill">About</span>
-        <h2>About Me</h2>
-        <div id="about-container"></div>
+        <h2>Publications</h2>
+        <div id="publications-container" class="paper-list"></div>
+      </div>
+    </section>
+
+    <section id="working-papers" class="section" hidden>
+      <div class="shell">
+        <h2>Working Papers</h2>
+        <p class="section-intro">Preprints and manuscripts currently under review.</p>
+        <div id="working-papers-container" class="paper-list"></div>
+      </div>
+    </section>
+
+    <section id="press" class="section muted" hidden>
+      <div class="shell">
+        <h2>Selected Popular Press</h2>
+        <div id="media-container" class="item-list"></div>
       </div>
     </section>
   </main>
@@ -75,7 +83,9 @@
   <script src="./js/utils.js"></script>
   <script src="./js/site-chrome.js"></script>
   <script src="./js/cookie-notice.js"></script>
-  <script src="./js/profile.js"></script>
   <script src="./js/ongoing_projects.js"></script>
+  <script src="./js/publications.js"></script>
+  <script src="./js/working_papers.js"></script>
+  <script src="./js/media.js"></script>
 </body>
 </html>

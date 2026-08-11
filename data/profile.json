@@ -1,0 +1,17 @@
+{
+  "name": "Shaye Hopkins",
+  "title": "PhD Candidate, Behavioral Scientist",
+  "affiliation": "Vienna University of Economics and Business (WU Vienna)",
+  "photoPath": "./assets/images/shaye-hopkins-portrait.jpg",
+  "tagline": "I’m a behavioral scientist studying how people form beliefs, build trust, and make decisions in complex social systems. My work focuses on topics ranging from misinformation to trust, polarization, well-being, and sustainability.",
+  "bio": [
+    "I’m a behavioral scientist studying how people form beliefs, build trust, and make decisions in complex social systems. My work focuses on topics ranging from misinformation to trust, polarization, well-being, and sustainability, using experiments and exploratory methods to design interventions that help people and institutions make better decisions.",
+    "I aim to help organizations design better systems, tools, and communications by understanding how people think, decide, and behave. With a background in behavioral science and analytics, I develop evidence-based strategies that improve well-being, reduce conflict, and drive behavior change in areas like financial decision-making, cooperation, and trust.",
+    "I am currently a PhD candidate at the Vienna University of Economics and Business, where I teach and study what drives conflict and inaccurate beliefs, and interventions to meaningfully address this. Previously, I was a behavioral researcher at Duke University, leading applied studies and experiments on governance, public trust, and financial inclusion."
+  ],
+  "links": [
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/shaye-hopkins/" },
+    { "label": "Email", "url": "mailto:shaye.mcd@gmail.com" },
+    { "label": "CV", "url": "https://docs.google.com/gview?embedded=true&url=https://docs.google.com/document/d/1koAxQyx4TrLzmpDDopeih1BFsthTo3ipjYuglOgTZDs/export?format=pdf" }
+  ]
+}
