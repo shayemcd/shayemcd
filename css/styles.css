@@ -180,7 +180,7 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
 
 /* --- About (rendered by js/profile.js) ------------------------------------ */
-#about-container p { max-width: 65ch; }
+.about-content { max-width: 700px; margin-left: auto; margin-right: auto; }
 
 /* --- Generic items (education, media, talks, teaching) ------------------- */
 .item { border-left: 2px solid var(--border); padding-left: 1.25rem; }
