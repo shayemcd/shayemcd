@@ -36,11 +36,15 @@ const Site = {
       data == null ||
       (Array.isArray(data) && data.length === 0) ||
       (typeof data === "object" && Object.keys(data).length === 0);
-    if (isEmpty) return;
+    if (isEmpty) {
+      document.dispatchEvent(new CustomEvent("site:sectionLoaded", { detail: { containerId, empty: true } }));
+      return;
+    }
 
     render(container, data);
     const section = container.closest("section");
     if (section) section.hidden = false;
+    document.dispatchEvent(new CustomEvent("site:sectionLoaded", { detail: { containerId, empty: false } }));
   },
 
   /** Create an element with a class and optional text content. */
@@ -53,7 +57,9 @@ const Site = {
 
   /**
    * Render one paper card (shared by publications and working papers).
-   * Fields used: title, url, authors, publication, year, pdfPath, bibPath.
+   * Fields used: title, url, authors, publication, year, pdfPath, bibPath,
+   * tags (topic labels — also feeds the tag filter bar in js/paper-filters.js),
+   * abstract (shown behind a Show/Hide toggle).
    */
   paperCard(paper) {
     const card = this.el("article", "paper");
@@ -70,10 +76,38 @@ const Site = {
     const venue = [paper.publication, paper.year].filter(Boolean).join(", ");
     if (venue) card.appendChild(this.el("p", "paper-venue", venue));
 
+    if (paper.tags && paper.tags.length) {
+      card.dataset.tags = paper.tags.join("|");
+      const tagsRow = this.el("p", "paper-tags");
+      paper.tags.forEach((tag) => tagsRow.appendChild(this.el("span", "paper-tag", tag)));
+      card.appendChild(tagsRow);
+    }
+
     const links = this.el("p", "paper-links");
     if (paper.pdfPath) links.appendChild(this.link(paper.pdfPath, "PDF"));
     if (paper.bibPath) links.appendChild(this.link(paper.bibPath, "BibTeX"));
+
+    let abstractEl = null;
+    if (paper.abstract) {
+      abstractEl = this.el("p", "paper-abstract", paper.abstract);
+      abstractEl.hidden = true;
+
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "paper-abstract-toggle";
+      toggle.textContent = "Show abstract";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.addEventListener("click", () => {
+        const show = abstractEl.hidden;
+        abstractEl.hidden = !show;
+        toggle.textContent = show ? "Hide abstract" : "Show abstract";
+        toggle.setAttribute("aria-expanded", String(show));
+      });
+      links.appendChild(toggle);
+    }
+
     if (links.childNodes.length) card.appendChild(links);
+    if (abstractEl) card.appendChild(abstractEl);
 
     return card;
   },

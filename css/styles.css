@@ -196,9 +196,59 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 .paper-title a { text-decoration: underline; text-decoration-color: var(--border); }
 .paper-authors { margin: 0 0 0.15rem; color: var(--text-muted); font-size: 0.95rem; }
 .paper-venue { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
-.paper-links { margin: 0.5rem 0 0; display: flex; gap: 1rem; }
+.paper-links { margin: 0.5rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .paper-links a { color: var(--primary); text-decoration: underline; font-size: 0.9rem; }
 .paper-list { display: grid; gap: 1.25rem; }
+
+.paper-tags { margin: 0.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.paper-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 0.3em 0.65em;
+  border-radius: 4px;
+}
+
+.paper-abstract-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.paper-abstract-toggle:hover { color: var(--accent); }
+.paper-abstract {
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border);
+  font-size: 0.95rem;
+}
+
+/* --- Tag filter bar (research.html, above Publications/Working Papers) --- */
+.tag-filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 1.75rem 0 0; }
+.tag-filter-bar[hidden] { display: none; }
+.tag-filter {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45em 1.1em;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tag-filter:hover { border-color: var(--primary); color: var(--primary); }
+.tag-filter.is-active { background: var(--primary); border-color: var(--primary); color: #fff; }
 
 /* Forms */
 input, textarea {

@@ -46,7 +46,7 @@ Array, newest first. Renderer `js/education.js` still exists but isn't loaded by
 
 ## data/publications.json — published papers
 
-Array, ordered by year (newest first). Rendered by `js/publications.js`.
+Array, ordered by year (newest first). Rendered by `js/publications.js`, via the shared `Site.paperCard` helper in `js/utils.js`.
 
 ```json
 {
@@ -54,16 +54,20 @@ Array, ordered by year (newest first). Rendered by `js/publications.js`.
   "authors": "Hopkins, S. A. M., Rayburn-Reeves, R. M., ...",
   "publication": "PNAS Nexus, 4(8), pgaf245",
   "year": "2025",
-  "url": "https://doi.org/10.1093/pnasnexus/pgaf245"
+  "url": "https://doi.org/10.1093/pnasnexus/pgaf245",
+  "tags": ["Misinformation, Trust & Polarization"],
+  "abstract": "Full abstract text, verbatim from the paper."
 }
 ```
 
 - `year` is a string. `url` is the canonical DOI/publisher link.
 - Optional: `pdfPath`, `bibPath` (links only render when present) — unused in this repo since there's no local `docs/publications/` directory; every entry links out via `url` instead.
+- Optional: `tags` (array of strings). Renders as pills on the card and feeds the tag filter bar (`js/paper-filters.js`) above the Publications/Working Papers sections on `research.html` — clicking a tag filters both lists. By convention, tag values match the `ongoing_projects.json` research-focus titles, but any string works. Never invent tag values that don't reflect the paper's actual topic.
+- Optional: `abstract`. When present, the card gets a "Show abstract" toggle that reveals this text. Use the paper's real, verbatim abstract — never a paraphrase or placeholder. Omit the field entirely if you don't have the real text yet (the toggle simply doesn't render).
 
 ## data/working_papers.json — preprints / under review
 
-Array, newest first. Rendered by `js/working_papers.js`. Same shape as `publications.json`; `publication` is used as a status note (e.g. `"Under review, SSRN"`) rather than a journal name.
+Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.paperCard` helper. Same shape as `publications.json` (including optional `tags` and `abstract`, see above); `publication` is used as a status note (e.g. `"Under review, SSRN"`) rather than a journal name.
 
 ```json
 {
@@ -71,7 +75,8 @@ Array, newest first. Rendered by `js/working_papers.js`. Same shape as `publicat
   "authors": "Hopkins, S., Costello, T., Pennycook, G., & Rand, D.",
   "publication": "Under review, Research Square",
   "year": "2026",
-  "url": "https://doi.org/10.21203/rs.3.rs-8663921/v1"
+  "url": "https://doi.org/10.21203/rs.3.rs-8663921/v1",
+  "tags": ["Misinformation, Trust & Polarization"]
 }
 ```
 
