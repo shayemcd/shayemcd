@@ -62,7 +62,7 @@ Array, ordered by year (newest first). Rendered by `js/publications.js`, via the
 
 - `year` is a string. `url` is the canonical DOI/publisher link.
 - Optional: `pdfPath`, `bibPath` (links only render when present) — unused in this repo since there's no local `docs/publications/` directory; every entry links out via `url` instead.
-- Optional: `tags` (array of strings). Renders as pills on the card and feeds the tag filter bar (`js/paper-filters.js`) above the Publications/Working Papers sections on `research.html` — clicking a tag filters both lists. By convention, tag values match the `ongoing_projects.json` research-focus titles, but any string works. Never invent tag values that don't reflect the paper's actual topic.
+- Optional: `tags` (array of strings). Renders as pills on the card and feeds the tag filter bar (`js/paper-filters.js`) above the Publications/Working Papers/Manuscripts in Preparation sections on `research.html` — clicking a tag filters all three lists together. By convention, tag values match the `ongoing_projects.json` research-focus titles, but any string works. Never invent tag values that don't reflect the paper's actual topic.
 - Optional: `abstract`. When present, the card gets a "Show abstract" toggle that reveals this text. Use the paper's real, verbatim abstract — never a paraphrase or placeholder. Omit the field entirely if you don't have the real text yet (the toggle simply doesn't render).
 
 ## data/working_papers.json — preprints / under review
@@ -81,6 +81,22 @@ Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.pape
 ```
 
 - Optional: `publication`, `year`.
+
+## data/manuscripts_in_prep.json — unpublished drafts (extension, not in upstream template)
+
+Array. Rendered by `js/manuscripts_in_prep.js` (also via `Site.paperCard`) as the "Manuscripts in Preparation" section on `research.html`, right after Working Papers. For drafts that don't have a preprint/DOI/URL yet — `Site.paperCard` renders the title as plain text (no link) when `url` is absent, so entries here are intentionally unclickable.
+
+```json
+{
+  "title": "Life Doesn’t Have To Be About Pain: The Path To Joyful Expertise",
+  "authors": "Hopkins, S., Rush, M., Fox, K., ...",
+  "publication": "Manuscript in preparation",
+  "tags": ["Well-being"]
+}
+```
+
+- No `url` or `year` — these are pre-submission drafts. Once a manuscript gets a preprint/DOI, move its entry to `working_papers.json` and add `url`.
+- Optional: `tags`, `abstract` (same conventions as `publications.json`/`working_papers.json` above).
 
 ## data/media.json — popular press (extension, not in upstream template)
 

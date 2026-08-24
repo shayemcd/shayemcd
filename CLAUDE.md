@@ -10,10 +10,14 @@ The site is **multi-page** (no build step, no shared templating) — each page i
 | --- | --- | --- | --- |
 | `index.html` (Home) | Hero (photo, headline, tagline, CTAs) | `data/profile.json` | `js/profile.js` |
 | `index.html` (Home) | About (full bio) | `data/profile.json` | `js/profile.js` |
-| `research.html` | Research Focus | `data/ongoing_projects.json` | `js/ongoing_projects.js` |
+| `index.html` (Home) | Research Focus (teaser: tags linking to `research.html`) | `data/ongoing_projects.json` | `js/ongoing_projects.js` |
+| `research.html` | Research Focus (full cards) | `data/ongoing_projects.json` | `js/ongoing_projects.js` |
 | `research.html` | Publications | `data/publications.json` | `js/publications.js` |
 | `research.html` | Working Papers | `data/working_papers.json` | `js/working_papers.js` |
+| `research.html` | Manuscripts in Preparation (unlinked drafts) | `data/manuscripts_in_prep.json` | `js/manuscripts_in_prep.js` |
 | `research.html` | Selected Popular Press | `data/media.json` | `js/media.js` |
+
+Publications/Working Papers/Manuscripts in Preparation share a tag filter bar (`js/paper-filters.js`) driven by each paper's `tags` field.
 
 `js/profile.js` reads `data/profile.json` once and renders into two containers on Home: `#hero-container` (always shown) and `#about-container` (hidden unless `bio` has entries). `data/education.json` / `js/education.js` currently aren't wired into any page — the Education section was dropped from Home; see `schemas.md` for how to bring it back.
 

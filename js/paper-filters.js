@@ -1,10 +1,11 @@
 /**
- * Builds the tag filter bar above Publications/Working Papers once both
- * sections have finished loading (via the `site:sectionLoaded` event
- * dispatched by Site.load). Filters by the `tags` field on each paper.
+ * Builds the tag filter bar above Publications/Working Papers/Manuscripts
+ * in Preparation once all three sections have finished loading (via the
+ * `site:sectionLoaded` event dispatched by Site.load). Filters by the
+ * `tags` field on each paper.
  */
 (() => {
-  const WATCHED = ["publications-container", "working-papers-container"];
+  const WATCHED = ["publications-container", "working-papers-container", "manuscripts-container"];
   const loaded = new Set();
 
   document.addEventListener("site:sectionLoaded", (event) => {
