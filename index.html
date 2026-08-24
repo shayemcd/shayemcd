@@ -29,8 +29,10 @@
 
   <main id="top">
     <!-- Hero and About are rendered from data/profile.json by js/profile.js; Research Focus
-         from data/ongoing_projects.json by js/ongoing_projects.js. Do not hardcode content
-         here: edit the JSON files instead. A section with no data hides itself automatically. -->
+         is a compact teaser (topic tags linking to research.html) rendered from
+         data/ongoing_projects.json by js/ongoing_projects.js - the full write-ups live on
+         research.html instead of duplicating them here. Do not hardcode content here: edit
+         the JSON files instead. A section with no data hides itself automatically. -->
 
     <section id="hero" class="section">
       <div class="shell">
@@ -38,13 +40,16 @@
       </div>
     </section>
 
-    <section id="research" class="section muted" hidden>
+    <section id="research" class="section muted teaser-section" hidden>
       <div class="shell">
-        <div class="section-intro">
-          <h2>Research Focus</h2>
-          <p>My research encompasses topics including misinformation reduction, financial well-being, and sustainability.</p>
+        <div class="teaser-row">
+          <div class="teaser-copy">
+            <span class="pill">Research Focus</span>
+            <p class="teaser-lede">Belief formation, institutional trust, well-being, and sustainable behavior change &mdash; three threads run through my work.</p>
+          </div>
+          <div id="research-teaser-container" class="teaser-tags"></div>
         </div>
-        <div id="projects-container" class="grid three"></div>
+        <a class="teaser-more" href="./research.html#research">See full research</a>
       </div>
     </section>
 

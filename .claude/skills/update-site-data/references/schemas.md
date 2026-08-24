@@ -98,9 +98,9 @@ Array, newest first. Rendered by `js/media.js` as the "Selected Popular Press" s
 
 - `date` is `YYYY-MM-DD`. Optional: `authors`, `outlet`.
 
-## data/ongoing_projects.json — "Research Focus" cards
+## data/ongoing_projects.json — "Research Focus" cards / Home teaser tags
 
-Array. Rendered by `js/ongoing_projects.js`. Currently used for the three research-focus cards (Misinformation/Trust/Polarization, Well-being, Sustainability) rather than literal ongoing-project updates — treat as a general "research themes" list.
+Array. Currently used for the three research-focus themes (Misinformation/Trust/Polarization, Well-being, Sustainability) rather than literal ongoing-project updates — treat as a general "research themes" list.
 
 ```json
 {
@@ -108,6 +108,12 @@ Array. Rendered by `js/ongoing_projects.js`. Currently used for the three resear
   "description": "Studying how false beliefs form and persist..."
 }
 ```
+
+`js/ongoing_projects.js` renders this file twice, differently per page (both from the same data, so there's one place to edit topic names):
+- `research.html`'s `#projects-container` gets the full cards (`title` + `description`).
+- `index.html`'s `#research-teaser-container` gets a compact row of `title`-only tags (class `tag-link`) linking to `research.html#research` — `description` isn't used there. The teaser's lede sentence is static HTML in `index.html`, not data-driven, since it's a one-off sentence rather than repeatable list content.
+
+`title` values double as the `tags` used to filter Publications/Working Papers (see below) — keep them in sync if you rename one.
 
 ## data/news.json — news items (currently empty, section hidden)
 

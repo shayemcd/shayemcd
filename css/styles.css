@@ -232,6 +232,33 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
   font-size: 0.95rem;
 }
 
+/* --- Research Focus teaser (index.html only; full cards stay on research.html) --- */
+.teaser-section { padding: 2.75rem 0; }
+.teaser-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.75rem 2.5rem; }
+.teaser-copy { max-width: 46ch; }
+.teaser-copy .pill { margin-bottom: 0.6rem; }
+.teaser-lede { margin: 0; color: var(--text-main); font-size: 1.02rem; }
+.teaser-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; flex-shrink: 0; }
+.tag-link {
+  display: inline-block;
+  padding: 0.55em 1.1em;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.tag-link:hover { border-color: var(--accent); color: var(--accent-hover); background: var(--primary-light); }
+.teaser-more { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 1.4rem; font-weight: 600; font-size: 0.9rem; color: var(--primary); }
+.teaser-more:hover { color: var(--accent); }
+.teaser-more::after { content: '\2192'; transition: transform 0.2s; }
+.teaser-more:hover::after { transform: translateX(3px); }
+
+@media (max-width: 640px) {
+  .teaser-row { flex-direction: column; align-items: flex-start; }
+}
+
 /* --- Tag filter bar (research.html, above Publications/Working Papers) --- */
 .tag-filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 1.75rem 0 0; }
 .tag-filter-bar[hidden] { display: none; }
