@@ -212,6 +212,15 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
   padding: 0.3em 0.65em;
   border-radius: 4px;
 }
+.paper-subtag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0.3em 0.55em;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
 
 .paper-abstract-toggle {
   background: none;
@@ -259,9 +268,20 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
   .teaser-row { flex-direction: column; align-items: flex-start; }
 }
 
-/* --- Tag filter bar (research.html, above Publications/Working Papers) --- */
-.tag-filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 1.75rem 0 0; }
+/* --- Two-tier filter bar (topic + subtopic; research.html and cv.html) --- */
+.tag-filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; padding: 1.75rem 0 0; }
 .tag-filter-bar[hidden] { display: none; }
+#subtopic-filter-bar { padding-top: 0.75rem; }
+.tag-filter-bar::before {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-right: 0.25rem;
+}
+#tag-filter-bar::before { content: 'Topic'; }
+#subtopic-filter-bar::before { content: 'Subtopic'; }
 .tag-filter {
   font: inherit;
   font-size: 0.85rem;
@@ -314,9 +334,9 @@ label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9r
 }
 
 @media print {
-  @page { margin: 0.6in; }
-  .site-header, .site-footer, .cookie-notice, .cv-print-btn { display: none !important; }
-  body { background: #fff; }
+  @page { size: letter; margin: 0.6in; }
+  .site-header, .site-footer, .cookie-notice, .cv-print-btn, .tag-filter-bar { display: none !important; }
+  body { background: #fff; font-size: 10.5pt; }
   .section { padding: 0; }
   /* .shell sets width via min(); .cv-page separately caps max-width - both
      land on the same element, so override both explicitly here rather than
@@ -326,6 +346,8 @@ label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9r
   .cv-header-row .btn { display: none; }
   a { color: inherit; text-decoration: none; }
   .paper, .item { break-inside: avoid; }
+  .cv-section { break-inside: auto; }
+  .cv-section h2 { break-after: avoid; page-break-after: avoid; }
   /* "Show abstract" is inert on a printed page - hide the toggle and just show the text. */
   .paper-abstract-toggle { display: none; }
   .paper-abstract { display: block !important; }

@@ -19,7 +19,7 @@ The site is **multi-page** (no build step, no shared templating) — each page i
 | `cv.html` | Header (name, title, affiliation, contact links) | `data/profile.json` | `js/cv.js` |
 | `cv.html` | Education, Publications, Working Papers, Manuscripts in Preparation, Selected Popular Press | same files as `research.html` | same renderers as `research.html` |
 
-Publications/Working Papers/Manuscripts in Preparation share a tag filter bar (`js/paper-filters.js`) driven by each paper's `tags` field — on `research.html` only; `cv.html` doesn't load `paper-filters.js`, since filtering doesn't make sense on a print/PDF CV.
+Publications/Working Papers/Manuscripts in Preparation share a two-tier filter bar (`js/paper-filters.js`) driven by each paper's `tags` (topic) and `subtopics` (finer-grained) fields — on both `research.html` and `cv.html`. On the CV, the filter also determines what prints (`[hidden]` applies under `@media print`), so it doubles as a way to produce a topic-tailored CV.
 
 `js/profile.js` reads `data/profile.json` once and renders into two containers on Home: `#hero-container` (always shown) and `#about-container` (hidden unless `bio` has entries). `data/education.json` / `js/education.js` currently aren't wired into any page — the Education section was dropped from Home; see `schemas.md` for how to bring it back.
 

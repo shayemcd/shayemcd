@@ -56,14 +56,15 @@ Array, ordered by year (newest first). Rendered by `js/publications.js`, via the
   "year": "2025",
   "url": "https://doi.org/10.1093/pnasnexus/pgaf245",
   "tags": ["Misinformation, Trust & Polarization"],
+  "subtopics": ["Media Literacy & Discernment Tools"],
   "abstract": "Full abstract text, verbatim from the paper."
 }
 ```
 
 - `year` is a string. `url` is the canonical DOI/publisher link.
 - Optional: `pdfPath`, `bibPath` (links only render when present) — unused in this repo since there's no local `docs/publications/` directory; every entry links out via `url` instead.
-- Optional: `tags` (array of strings). Renders as pills on the card and feeds the tag filter bar (`js/paper-filters.js`) above the Publications/Working Papers/Manuscripts in Preparation sections on `research.html` — clicking a tag filters all three lists together. By convention, tag values match the `ongoing_projects.json` research-focus titles, but any string works. Never invent tag values that don't reflect the paper's actual topic.
-- Optional: `abstract`. When present, the card gets a "Show abstract" toggle that reveals this text. Use the paper's real, verbatim abstract — never a paraphrase or placeholder. Omit the field entirely if you don't have the real text yet (the toggle simply doesn't render).
+- Optional: `tags` (array of strings) and `subtopics` (array of strings) — a two-tier taxonomy. Both render as pills on the card (`tags` filled, `subtopics` outlined) and feed the two-tier filter bar (`js/paper-filters.js`, two rows: `#tag-filter-bar` for topic, `#subtopic-filter-bar` for subtopic) above the Publications/Working Papers/Manuscripts in Preparation sections — present on both `research.html` and `cv.html`. Selecting a topic and a subtopic filters with AND logic (a paper must match both); "All" on either row leaves that facet unconstrained. On `cv.html`, filtering also determines what prints, since `[hidden]` applies under print media too — filter down to a subset before hitting "Print / Save as PDF" to produce a topic-tailored CV. By convention `tags` values match the `ongoing_projects.json` research-focus titles; `subtopics` are finer-grained, one clear label per paper's specific angle. Never invent values that don't reflect the paper's actual topic.
+- Optional: `abstract`. When present, the card gets a "Show abstract" toggle that reveals this text (expanded by default in print, since the toggle itself doesn't work on a printed page). Use the paper's real, verbatim abstract — never a paraphrase or placeholder. Omit the field entirely if you don't have the real text yet (the toggle simply doesn't render).
 
 ## data/working_papers.json — preprints / under review
 
@@ -76,7 +77,8 @@ Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.pape
   "publication": "Under review, Research Square",
   "year": "2026",
   "url": "https://doi.org/10.21203/rs.3.rs-8663921/v1",
-  "tags": ["Misinformation, Trust & Polarization"]
+  "tags": ["Misinformation, Trust & Polarization"],
+  "subtopics": ["AI-Mediated Interventions"]
 }
 ```
 

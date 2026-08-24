@@ -58,8 +58,9 @@ const Site = {
   /**
    * Render one paper card (shared by publications and working papers).
    * Fields used: title, url, authors, publication, year, pdfPath, bibPath,
-   * tags (topic labels — also feeds the tag filter bar in js/paper-filters.js),
-   * abstract (shown behind a Show/Hide toggle).
+   * tags (top-level topic labels), subtopics (finer-grained labels) — both
+   * feed the two-tier filter bar in js/paper-filters.js — and abstract
+   * (shown behind a Show/Hide toggle).
    */
   paperCard(paper) {
     const card = this.el("article", "paper");
@@ -80,7 +81,13 @@ const Site = {
       card.dataset.tags = paper.tags.join("|");
       const tagsRow = this.el("p", "paper-tags");
       paper.tags.forEach((tag) => tagsRow.appendChild(this.el("span", "paper-tag", tag)));
+      if (paper.subtopics && paper.subtopics.length) {
+        paper.subtopics.forEach((sub) => tagsRow.appendChild(this.el("span", "paper-subtag", sub)));
+      }
       card.appendChild(tagsRow);
+    }
+    if (paper.subtopics && paper.subtopics.length) {
+      card.dataset.subtopics = paper.subtopics.join("|");
     }
 
     const links = this.el("p", "paper-links");
