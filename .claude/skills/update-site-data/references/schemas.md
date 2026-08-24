@@ -106,12 +106,11 @@ Array. Rendered by `js/manuscripts_in_prep.js` (also via `Site.paperCard`) as th
 {
   "title": "Life Doesn’t Have To Be About Pain: The Path To Joyful Expertise",
   "authors": "Hopkins, S., Rush, M., Fox, K., ...",
-  "publication": "Manuscript in preparation",
   "tags": ["Well-being"]
 }
 ```
 
-- No `url` or `year` — these are pre-submission drafts. Once a manuscript gets a preprint/DOI, move its entry to `working_papers.json` and add `url`.
+- No `url`, `year`, or `publication` — these are pre-submission drafts. The section heading and intro already say "Manuscripts in Preparation, not yet submitted for review," so repeating that status on every card via `publication` would be redundant; leave the field out. Once a manuscript gets a preprint/DOI, move its entry to `working_papers.json`, add `url`, and add a real `publication` status there (see below).
 - Optional: `tags`, `abstract` (same conventions as `publications.json`/`working_papers.json` above).
 
 ## data/media.json — popular press (extension, not in upstream template)
