@@ -29,7 +29,8 @@
 
   <main id="top">
     <!-- Every section below is rendered from a data/*.json file, same as research.html -
-         see schemas.md. A section with no data hides itself automatically. -->
+         see schemas.md. A section with no data hides itself automatically, and the table
+         of contents (js/cv-toc.js) only links to sections that ended up visible. -->
     <section id="cv" class="section" hidden>
       <div class="shell cv-page">
         <div class="cv-header-row">
@@ -37,9 +38,16 @@
           <button type="button" class="btn secondary cv-print-btn" onclick="window.print()">Print / Save as PDF</button>
         </div>
 
+        <nav id="cv-toc" class="cv-toc" aria-label="On this page" hidden></nav>
+
         <section id="cv-education" class="cv-section" hidden>
           <h2>Education</h2>
           <div id="education-container" class="item-list"></div>
+        </section>
+
+        <section id="cv-employment" class="cv-section" hidden>
+          <h2>Academic Experience</h2>
+          <div id="employment-container" class="item-list"></div>
         </section>
 
         <div id="tag-filter-bar" class="tag-filter-bar" role="group" aria-label="Filter papers by topic" hidden></div>
@@ -58,6 +66,21 @@
         <section id="cv-manuscripts" class="cv-section" hidden>
           <h2>Manuscripts in Preparation</h2>
           <div id="manuscripts-container" class="paper-list"></div>
+        </section>
+
+        <section id="cv-talks" class="cv-section" hidden>
+          <h2>Presentations</h2>
+          <div id="talks-container"></div>
+        </section>
+
+        <section id="cv-grants" class="cv-section" hidden>
+          <h2>Grants &amp; Funding</h2>
+          <div id="grants-container" class="item-list"></div>
+        </section>
+
+        <section id="cv-teaching" class="cv-section" hidden>
+          <h2>Teaching</h2>
+          <div id="teaching-container" class="item-list"></div>
         </section>
 
         <section id="cv-media" class="cv-section" hidden>
@@ -88,10 +111,15 @@
   <script src="./js/cookie-notice.js"></script>
   <script src="./js/cv.js"></script>
   <script src="./js/education.js"></script>
+  <script src="./js/employment.js"></script>
   <script src="./js/publications.js"></script>
   <script src="./js/working_papers.js"></script>
   <script src="./js/manuscripts_in_prep.js"></script>
   <script src="./js/paper-filters.js"></script>
+  <script src="./js/talks.js"></script>
+  <script src="./js/grants.js"></script>
+  <script src="./js/teaching.js"></script>
   <script src="./js/media.js"></script>
+  <script src="./js/cv-toc.js"></script>
 </body>
 </html>

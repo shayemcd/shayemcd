@@ -44,6 +44,20 @@ Array, newest first. Rendered by `js/education.js` into the Education section on
 
 - Optional: `description`.
 
+## data/employment.json — professional/academic experience
+
+Array, newest-ending-first (an ongoing "present" role goes first, then most recent end date). Rendered by `js/employment.js` into the "Academic Experience" section on `cv.html` (`#employment-container`). Not used anywhere else.
+
+```json
+{
+  "role": "Teaching & Research Associate",
+  "institution": "Vienna University of Economics & Business, Vienna, AT",
+  "term": "2025–present"
+}
+```
+
+- `institution` conventionally includes the city/country, since there's no separate location field.
+
 ## data/publications.json — published papers
 
 Array, ordered by year (newest first). Rendered by `js/publications.js`, via the shared `Site.paperCard` helper in `js/utils.js`.
@@ -115,6 +129,50 @@ Array, newest first. Rendered by `js/media.js` as the "Selected Popular Press" s
 ```
 
 - `date` is `YYYY-MM-DD`. Optional: `authors`, `outlet`.
+- Preserve the byline as actually published, even across a name change (e.g. some older entries are authored "McDonald, S." rather than "Hopkins, S.") — that's the accurate historical record, not a typo to fix.
+
+## data/talks.json — presentations (extension, not in upstream template)
+
+Array. Rendered by `js/talks.js` into the "Presentations" section on `cv.html` (`#talks-container`), grouped into two subheadings ("Talks", "Poster Presentations") by the `type` field — order within each group is manual (newest first), same convention as everywhere else.
+
+```json
+{
+  "type": "Talk",
+  "title": "Which Topics Polarize Where? Mapping Polarization and Depolarization in News Comments",
+  "venue": "DACH-CSS Conference 2026",
+  "date": "May 2026"
+}
+```
+
+- `type` is `"Talk"` or `"Poster"` — anything else won't render (only these two groups exist in `js/talks.js`).
+- `date` is a free-text "Month YYYY" string (no day-level precision in the source record) — kept as display text and manually ordered, not parsed for sorting.
+- Optional: `url` (renders the title as a link, e.g. to a poster PDF or OSF page) — most entries don't have one and render as plain text.
+
+## data/grants.json — grants & funding (extension, not in upstream template)
+
+Array, newest first. Rendered by `js/grants.js` into the "Grants & Funding" section on `cv.html` (`#grants-container`).
+
+```json
+{
+  "title": "WU Small Projects Grant",
+  "funder": "WU",
+  "amount": "€7,950",
+  "term": "January 2026 – April 2027"
+}
+```
+
+## data/teaching.json — courses taught
+
+Array, newest first. Rendered by `js/teaching.js` into the "Teaching" section on `cv.html` (`#teaching-container`). Not used anywhere else — see `data/education.json` above for how to also wire a section onto `index.html` if wanted.
+
+```json
+{
+  "course": "Business Psychology II",
+  "institution": "WU Vienna",
+  "role": "Undergraduate Lecture; Course coordinator",
+  "term": "Summer 2025–present"
+}
+```
 
 ## data/ongoing_projects.json — "Research Focus" cards / Home teaser tags
 
@@ -133,28 +191,13 @@ Array. Currently used for the three research-focus themes (Misinformation/Trust/
 
 `title` values double as the `tags` used to filter Publications/Working Papers (see below) — keep them in sync if you rename one.
 
-## data/news.json — news items (currently empty, section hidden)
+## data/news.json, data/software.json — don't exist in this repo
 
-Array of year groups, newest year first; items within a year are newest first. Rendered by `js/news.js` — **not currently wired into any page/loaded by any script tag.** To use it: add a `<section id="news">` + `<script src="./js/news.js">` back to the relevant page (`research.html` is the natural fit; see the upstream template or git history), then populate this file.
+Not created. An earlier version of this doc described a `news.json` schema and claimed both files existed as unused hooks from the upstream template — neither claim was true; verify against the actual `data/`/`js/` directories before trusting old doc text like that. If you want a "News" or "Software" section, design its schema from scratch (a news feed would likely want something like the upstream template's year-grouped format with a `type`/`htmltext` shape; port from the [upstream template](https://github.com/mr-devs/cc-academic-website/tree/main/js) as a starting point), add the `data/*.json` file, a `<section>` + container `<div>` + `<script src="./js/*.js">` to the relevant page, write the renderer, then document it here.
 
-```json
-{
-  "year": "2026",
-  "items": [
-    {
-      "type": "Preprint",
-      "htmltext": "New preprint: <a href='https://doi.org/...' target='_blank'>Paper Title</a>."
-    }
-  ]
-}
-```
+## cv.html table of contents — not a data file
 
-- `type` is one of: `Publication`, `Preprint`, `Talk`, `Award`, `Media`, `Tool`, `General`.
-- `htmltext` conventions: single-quoted HTML attributes; links as `<a href='URL' target='_blank'>`; `<em>` for venues; `<code>` for software names. 1–2 sentences, professional tone, emojis only for big milestones.
-
-## data/talks.json, data/software.json, data/teaching.json — not currently used
-
-These files/renderers exist in the upstream template but are not part of this site's current design (no data files, no section markup, no script tags). If you want one of these sections, create the `data/*.json` file, add a `<section>` + container `<div>` to the relevant page (likely `research.html`), add the matching `<script src="./js/*.js">` tag, and port the renderer JS from the [upstream template](https://github.com/mr-devs/cc-academic-website/tree/main/js) — then document its schema here.
+`js/cv-toc.js` builds the "On this page" jump-link row at the top of `cv.html` after every section has finished loading, by scanning for `.cv-section` elements that ended up visible and linking to each one's `id` using its `<h2>` text as the label. Nothing to configure — add a new `.cv-section` to `cv.html` with an `id` and it picks it up automatically, as long as its container ID is added to the `WATCHED` list in `js/cv-toc.js` (it needs to know to wait for that section's `site:sectionLoaded` event before building the TOC).
 
 ## docs/publications/ directory convention — not used in this repo
 

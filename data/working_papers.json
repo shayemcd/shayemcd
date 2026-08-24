@@ -4,10 +4,28 @@
     "authors": "Hopkins, S., Costello, T., Pennycook, G., & Rand, D.",
     "publication": "Under review, Research Square",
     "year": "2026",
-    "url": "https://doi.org/10.21203/rs.3.rs-8663921/v1",
+    "url": "https://doi.org/10.21203/rs.3.rs-8663921/v2",
     "tags": ["Misinformation, Trust & Polarization"],
     "subtopics": ["AI-Mediated Interventions"],
     "abstract": "Elections, while central to democratic functioning, have become increasingly threatened by beliefs about election fraud. Artificial intelligence (AI) provides a novel opportunity to address such false beliefs through dynamic conversation and debunking. Through two experiments (N = 1,802 Republicans from Lucid who endorsed election fraud claims), we examined the use of AI to fact-check 2020 election conspiracies prior to the 2024 US Presidential election. We tested the effects of two treatments (an information-tailored and values-tailored AI dialogue) in which AI fact-checked their claims and tailored arguments to the specific election conspiracy that the participant themselves articulated. Both treatment conditions, when compared to a control dialogue and a simple statement that the conspiracy was incorrect, reduced confidence in their election conspiracy claims. There was no significant difference between information-tailored and values-tailored feedback. Promisingly, participants with the strongest baseline denialism experienced the largest decreases in denialism beliefs. These studies highlight the potential of AI-driven interventions to address election misinformation."
+  },
+  {
+    "title": "Unmasking Conspiracy Theorists: Personality Differences and Recruitment Challenges in Online Environments",
+    "authors": "Hopkins, S., & Ariely, D.",
+    "publication": "Under review, OSF",
+    "year": "2025",
+    "url": "https://doi.org/10.31219/osf.io/bg7fx_v2",
+    "tags": ["Misinformation, Trust & Polarization"],
+    "subtopics": ["Conspiracy Beliefs & Personality"]
+  },
+  {
+    "title": "Motivating Change: Combining Social Comparison and Equivalency Frames Influence Pro-Environmental Behaviors",
+    "authors": "Hopkins, S., Sherlock, J., Martinez Daniel, E. M., Luebeck, C., Gavin, L., & Daly, M.",
+    "publication": "Under review, PsyArXiv",
+    "year": "2026",
+    "url": "http://osf.io/preprints/psyarxiv/4v6we_v1",
+    "tags": ["Sustainability"],
+    "subtopics": ["Social Norms & Framing"]
   },
   {
     "title": "Who are Effective and Trustworthy Messengers for Election-Related Communications? How Local Messengers Impact Effectiveness of Psychological Inoculation",
