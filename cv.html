@@ -28,17 +28,39 @@
   </header>
 
   <main id="top">
-    <section id="cv" class="section">
-      <div class="shell cv-intro">
-        <h2>Curriculum Vitae</h2>
-        <p>Scroll to view, or open in a new tab from the link below.</p>
-      </div>
-      <div class="shell">
-        <div class="cv-container">
-          <iframe src="https://docs.google.com/gview?embedded=true&url=https://docs.google.com/document/d/1koAxQyx4TrLzmpDDopeih1BFsthTo3ipjYuglOgTZDs/export?format=pdf" title="Shaye Hopkins CV">
-            <p>Your browser does not support iframes. <a href="https://docs.google.com/document/d/1koAxQyx4TrLzmpDDopeih1BFsthTo3ipjYuglOgTZDs/export?format=pdf">Open the CV</a>.</p>
-          </iframe>
+    <!-- Every section below is rendered from a data/*.json file, same as research.html -
+         see schemas.md. A section with no data hides itself automatically. -->
+    <section id="cv" class="section" hidden>
+      <div class="shell cv-page">
+        <div class="cv-header-row">
+          <div id="cv-header-container"></div>
+          <button type="button" class="btn secondary cv-print-btn" onclick="window.print()">Print / Save as PDF</button>
         </div>
+
+        <section id="cv-education" class="cv-section" hidden>
+          <h2>Education</h2>
+          <div id="education-container" class="item-list"></div>
+        </section>
+
+        <section id="cv-publications" class="cv-section" hidden>
+          <h2>Publications</h2>
+          <div id="publications-container" class="paper-list"></div>
+        </section>
+
+        <section id="cv-working-papers" class="cv-section" hidden>
+          <h2>Working Papers</h2>
+          <div id="working-papers-container" class="paper-list"></div>
+        </section>
+
+        <section id="cv-manuscripts" class="cv-section" hidden>
+          <h2>Manuscripts in Preparation</h2>
+          <div id="manuscripts-container" class="paper-list"></div>
+        </section>
+
+        <section id="cv-media" class="cv-section" hidden>
+          <h2>Selected Popular Press</h2>
+          <div id="media-container" class="item-list"></div>
+        </section>
       </div>
     </section>
   </main>
@@ -61,5 +83,11 @@
   <script src="./js/utils.js"></script>
   <script src="./js/site-chrome.js"></script>
   <script src="./js/cookie-notice.js"></script>
+  <script src="./js/cv.js"></script>
+  <script src="./js/education.js"></script>
+  <script src="./js/publications.js"></script>
+  <script src="./js/working_papers.js"></script>
+  <script src="./js/manuscripts_in_prep.js"></script>
+  <script src="./js/media.js"></script>
 </body>
 </html>

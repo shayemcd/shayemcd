@@ -16,14 +16,18 @@ The site is **multi-page** (no build step, no shared templating) — each page i
 | `research.html` | Working Papers | `data/working_papers.json` | `js/working_papers.js` |
 | `research.html` | Manuscripts in Preparation (unlinked drafts) | `data/manuscripts_in_prep.json` | `js/manuscripts_in_prep.js` |
 | `research.html` | Selected Popular Press | `data/media.json` | `js/media.js` |
+| `cv.html` | Header (name, title, affiliation, contact links) | `data/profile.json` | `js/cv.js` |
+| `cv.html` | Education, Publications, Working Papers, Manuscripts in Preparation, Selected Popular Press | same files as `research.html` | same renderers as `research.html` |
 
-Publications/Working Papers/Manuscripts in Preparation share a tag filter bar (`js/paper-filters.js`) driven by each paper's `tags` field.
+Publications/Working Papers/Manuscripts in Preparation share a tag filter bar (`js/paper-filters.js`) driven by each paper's `tags` field — on `research.html` only; `cv.html` doesn't load `paper-filters.js`, since filtering doesn't make sense on a print/PDF CV.
 
 `js/profile.js` reads `data/profile.json` once and renders into two containers on Home: `#hero-container` (always shown) and `#about-container` (hidden unless `bio` has entries). `data/education.json` / `js/education.js` currently aren't wired into any page — the Education section was dropped from Home; see `schemas.md` for how to bring it back.
 
 Every page also loads `js/site-chrome.js`, which reads `data/profile.json` to set `document.title` (using the page's `<body data-page-title="...">` attribute), the nav brand text (`#nav-name`), and the footer copyright line (`#footer-name`). Set `data-page-title` on every page except `index.html` (Home falls back to the profile title).
 
-**Deliberate exceptions** — hand-written per-page, not JSON-driven, because they aren't repeatable list content: `cv.html` (`#cv`, a single Google Docs iframe embed) and `contact.html` (`#contact`, a Formspree form). Leave these as static HTML.
+**Deliberate exception** — hand-written, not JSON-driven, because it isn't repeatable list content: `contact.html` (`#contact`, a Formspree form). Leave this as static HTML.
+
+`cv.html` used to be a static Google Docs iframe embed (also a deliberate exception) but is now JSON-driven like every other page: it reuses `js/education.js`, `js/publications.js`, `js/working_papers.js`, `js/manuscripts_in_prep.js`, and `js/media.js` verbatim (same container IDs as `research.html`, so no new renderers needed for those), plus a small `js/cv.js` for the name/title/affiliation/contact-links header, sourced from `data/profile.json`'s `links` field. A "Print / Save as PDF" button (`window.print()`) plus an `@media print` block in `css/styles.css` replace the Google Doc's download/export feature. There is no `docs.google.com` reference left anywhere in the repo — the CV data files are the single source of truth now.
 
 `data/news.json`, `data/talks.json`, `data/software.json`, `data/teaching.json` exist as unused hooks carried over from the template — no section markup or script tag currently references them. See `.claude/skills/update-site-data/references/schemas.md` for how to wire one back in if needed.
 

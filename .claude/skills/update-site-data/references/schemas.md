@@ -6,7 +6,7 @@ Schemas and examples for every file under `data/`. This site was adapted from th
 
 ## data/profile.json — name, bio, links
 
-Object. Rendered by `js/profile.js` into two sections on Home (`index.html`): the hero (`#hero-container`, always shown) and About (`#about-container`, shown when `bio` has entries). `js/site-chrome.js` separately reads this file on every page to set the page title, nav brand name, and footer copyright.
+Object. Rendered by `js/profile.js` into two sections on Home (`index.html`): the hero (`#hero-container`, always shown) and About (`#about-container`, shown when `bio` has entries). Also rendered by `js/cv.js` into the CV header on `cv.html`. `js/site-chrome.js` separately reads this file on every page to set the page title, nav brand name, and footer copyright.
 
 ```json
 {
@@ -27,11 +27,11 @@ Object. Rendered by `js/profile.js` into two sections on Home (`index.html`): th
 - `tagline` renders as the hero's `lede` paragraph, under the "Shaye Hopkins." headline. Optional — the hero still renders without it.
 - `bio` is an array of paragraphs rendered in the About section further down Home. Optional — About stays hidden if empty/absent.
 - Optional: `photoPath` (omit to render without a photo).
-- `links` is currently unused by any renderer (LinkedIn/Email/CV are covered by the nav and footer instead) — kept for future use.
+- `links` is rendered by `js/cv.js` as the contact-links line under the name on `cv.html` (Home's nav/footer still hardcode LinkedIn/Email separately). A `{ "label": "CV", ... }` entry is filtered out by `js/cv.js` if present, to avoid a self-referential link on the CV page itself — don't add one back.
 
-## data/education.json — education timeline (currently unused, not wired into any page)
+## data/education.json — education timeline
 
-Array, newest first. Renderer `js/education.js` still exists but isn't loaded by any page — the Education section was dropped from Home. To bring it back: add a `<div id="education-container" class="item-list">` + `<script src="./js/education.js">` to the page of your choice (e.g. under the About section on `index.html`).
+Array, newest first. Rendered by `js/education.js` into the Education section on `cv.html` (`#education-container`). Not used on Home — the Education section was dropped from `index.html`; to add it there too, add a `<div id="education-container" class="item-list">` + `<script src="./js/education.js">` to `index.html` (e.g. under the About section).
 
 ```json
 {
