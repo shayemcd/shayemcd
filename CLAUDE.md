@@ -58,3 +58,9 @@ Schemas are documented in `.claude/skills/update-site-data/references/schemas.md
 ## Preview
 
 `python3 -m http.server 8000` from the repo root, then open `http://127.0.0.1:8000/`. Opening `index.html` via `file://` will NOT work — `fetch` needs HTTP.
+
+## Publication automation
+
+- `scripts/fetch_abstracts.py` — fills in missing `abstract` fields on existing `publications.json`/`working_papers.json` entries (Crossref/DataCite/meta-tag scrape). Writes candidates to `scripts/abstracts-preview.json` (gitignored) for manual review; never edits `data/*.json` directly.
+- `scripts/sync_openalex.py` — discovers new works via [OpenAlex](https://openalex.org), queried by Shaye's ORCID iD (`0000-0002-3560-7393`), that aren't yet in any of the three paper data files (matched by DOI, falling back to normalized title). Writes candidates to `scripts/openalex-preview.json` for manual review; never edits `data/*.json` directly — a human still has to choose Publications vs. Working Papers, reformat authors to house style, and add real `tags`/`subtopics`.
+- `.github/workflows/sync-publications.yml` runs `sync_openalex.py` weekly (Mondays, also triggerable via `workflow_dispatch`) and opens a PR containing `scripts/openalex-preview.json` when it finds something new — nothing is auto-merged or auto-published. Both scripts need real internet access and won't run inside a sandboxed Claude Code session with restricted egress; that's expected, not a bug.

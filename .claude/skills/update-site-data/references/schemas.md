@@ -82,13 +82,13 @@ Array, ordered by year (newest first). Rendered by `js/publications.js`, via the
 
 ## data/working_papers.json — preprints / under review
 
-Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.paperCard` helper. Same shape as `publications.json` (including optional `tags` and `abstract`, see above); `publication` is used as a status note (e.g. `"Under review, SSRN"`) rather than a journal name.
+Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.paperCard` helper. Same shape as `publications.json` (including optional `tags` and `abstract`, see above); `publication` is used as a status note (the host name only, e.g. `"SSRN"`) rather than a journal name.
 
 ```json
 {
   "title": "Dialogues on Democracy: Belief-Tailored AI Conversations Reduce Inaccurate Election Denial Beliefs",
   "authors": "Hopkins, S., Costello, T., Pennycook, G., & Rand, D.",
-  "publication": "Under review, Research Square",
+  "publication": "Research Square",
   "year": "2026",
   "url": "https://doi.org/10.21203/rs.3.rs-8663921/v1",
   "tags": ["Misinformation, Trust & Polarization"],
@@ -97,6 +97,7 @@ Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.pape
 ```
 
 - Optional: `publication`, `year`.
+- `publication` is just the host/repository name (e.g. `"SSRN"`, `"OSF"`, `"PsyArXiv"`) — don't prefix it with "Under review, "; the Working Papers section intro on `research.html`/`cv.html` already states that everything in this file is under review, so repeating it on every card is redundant. An entry that isn't actually under review (e.g. a completed report) should say so plainly instead, e.g. `"Center for Advanced Hindsight, report"`.
 
 ## data/manuscripts_in_prep.json — unpublished drafts (extension, not in upstream template)
 
