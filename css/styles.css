@@ -350,24 +350,59 @@ label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9r
 }
 .talks-subheading:first-child { margin-top: 0; }
 
+/* The rest of the site is a colorful, card-based "portfolio" look; the CV
+   page itself reads instead as a dense, monochrome, serif document - closer
+   to a traditional academic CV than to the other pages. Scoped to .cv-page
+   so research.html's paper/item cards (shared markup and classes) are
+   unaffected. */
+.cv-page { font-family: var(--font-heading); font-size: 0.95rem; line-height: 1.55; }
+.cv-page #cv-header-container h1 { font-size: 2rem; }
+
+.cv-page .item, .cv-page .paper { border-left: 0; padding-left: 0; }
+.cv-page .item-meta { color: var(--text-muted); font-weight: 400; font-style: italic; font-size: 0.9rem; }
+.cv-page .paper-authors { font-size: 0.9rem; }
+.cv-page .paper-venue { font-style: italic; }
+.cv-page .item-list, .cv-page .paper-list { gap: 1rem; }
+.cv-page .cv-section { margin-bottom: 2rem; }
+.cv-page .talks-subheading { color: var(--text-main); }
+
+/* Per-paper topic/subtopic badges read as colorful "portfolio" pills;
+   restyle to plain inline labels that fit a document-style CV. */
+.cv-page .paper-tag, .cv-page .paper-subtag {
+  display: inline;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text-muted);
+  background: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+.cv-page .paper-tag:not(:last-child)::after,
+.cv-page .paper-subtag:not(:last-child)::after { content: ','; }
+
 @media print {
-  @page { size: letter; margin: 0.6in; }
-  .site-header, .site-footer, .cookie-notice, .cv-print-btn, .tag-filter-bar, .cv-toc { display: none !important; }
+  /* Margins are baked into .shell.cv-page's own padding instead of relying on
+     @page - browsers' print dialogs have a separate "Margins" setting (often
+     defaulting to "None") that overrides @page margin regardless of what's
+     declared here, so an @page margin alone isn't reliably honored. */
+  @page { size: letter; margin: 0; }
+  .site-header, .site-footer, .cookie-notice, .cv-print-btn, .tag-filter-bar, .cv-toc,
+  .paper-tags, .paper-abstract, .paper-abstract-toggle { display: none !important; }
   body { background: #fff; font-size: 10.5pt; }
   .section { padding: 0; }
   /* .shell sets width via min(); .cv-page separately caps max-width - both
      land on the same element, so override both explicitly here rather than
      relying on one to beat the other. */
-  .shell.cv-page { width: 100% !important; max-width: none !important; margin: 0 !important; }
+  .shell.cv-page { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0.75in !important; }
   .cv-header-row { display: block; }
   .cv-header-row .btn { display: none; }
   a { color: inherit; text-decoration: none; }
   .paper, .item { break-inside: avoid; }
   .cv-section { break-inside: auto; }
   .cv-section h2, .talks-subheading { break-after: avoid; page-break-after: avoid; }
-  /* "Show abstract" is inert on a printed page - hide the toggle and just show the text. */
-  .paper-abstract-toggle { display: none; }
-  .paper-abstract { display: block !important; }
 }
 
 /* Footer */
