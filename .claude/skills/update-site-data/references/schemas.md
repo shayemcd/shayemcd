@@ -18,6 +18,8 @@ Object. Rendered by `js/profile.js` into two sections on Home (`index.html`): th
   "bio": ["First paragraph.", "Second paragraph.", "Third paragraph."],
   "links": [
     { "label": "LinkedIn", "url": "https://www.linkedin.com/in/shaye-hopkins/" },
+    { "label": "ORCID", "url": "https://orcid.org/0000-0002-3560-7393" },
+    { "label": "Google Scholar", "url": "https://scholar.google.com/citations?..." },
     { "label": "Email", "url": "mailto:shaye.mcd@gmail.com" },
     { "label": "CV", "url": "https://..." }
   ]
@@ -60,7 +62,7 @@ Array, newest-ending-first (an ongoing "present" role goes first, then most rece
 
 ## data/publications.json — published papers
 
-Array, ordered by year (newest first). Rendered by `js/publications.js`, via the shared `Site.paperCard` helper in `js/utils.js`.
+Array, ordered by year (newest first). Rendered by `js/publications.js`, via the shared `Site.paperCard` helper in `js/utils.js`. `Site.paperCard` renders differently per page: the full card described below on `research.html`, or a numbered APA-style citation (authors, year, title, venue, link only — no tags/tldr/abstract/data links) on `cv.html`, via `Site.paperCitation` — see the note at the end of this section. Everywhere an `authors` string is rendered (both card modes, plus `js/media.js`), `Site.boldenAuthors` bolds this site owner's own byline within it.
 
 ```json
 {
@@ -71,20 +73,27 @@ Array, ordered by year (newest first). Rendered by `js/publications.js`, via the
   "url": "https://doi.org/10.1093/pnasnexus/pgaf245",
   "tags": ["Misinformation, Trust & Polarization"],
   "subtopics": ["Discernment & Correction Tools"],
-  "abstract": "Full abstract text, verbatim from the paper."
+  "tldr": "One or two plain-language sentences on what the study found — no jargon, written for a general reader.",
+  "abstract": "Full abstract text, verbatim from the paper.",
+  "dataUrl": "https://osf.io/...",
+  "codeUrl": "https://github.com/..."
 }
 ```
 
 - `year` is a string. `url` is the canonical DOI/publisher link.
 - Optional: `pdfPath`, `bibPath` (links only render when present) — unused in this repo since there's no local `docs/publications/` directory; every entry links out via `url` instead.
+- Optional: `tldr` — a short (1-2 sentence) plain-language synthesis of the paper. Like `abstract`, it's collapsed behind its own "Show TL;DR" toggle; on `cv.html`, it's force-printed regardless of toggle state since it's more useful on a printed CV than the dense academic abstract, which stays hidden in print. This is the "what's this paper actually about" line for a non-academic visitor; it should paraphrase in plain English, not restate the abstract's jargon (and isn't necessarily drawn from the academic `abstract` — an executive summary or report conclusion works too, see the Fresh Start Effect entry in `working_papers.json`). Omit if you don't have one yet — the card renders fine without it.
+- The links row is ordered: PDF, BibTeX, Show abstract, Show TL;DR, Data & Code, Code.
+- Optional: `dataUrl`, `codeUrl` — links to the paper's public data and code (OSF, Dataverse, GitHub, etc.). `dataUrl` renders as "Data & Code" since data and code typically live in one combined repo (e.g. an OSF project); `codeUrl` is only for the rare paper with a separate code repo, and renders as an additional "Code" link alongside it. Only add real, working links — never a placeholder or a guess at where a repo "should" be.
 - Optional: `tags` (array of strings) and `subtopics` (array of strings) — a two-tier taxonomy. A paper can carry more than one value in either array when it genuinely spans themes (e.g. the Messengers working paper is tagged both `"Discernment & Correction Tools"` and `"Trust & Cooperation"`) — don't force a single value where two apply. Both render as pills on the card (`tags` filled, `subtopics` outlined) and feed the two-tier filter bar (`js/paper-filters.js`, two rows: `#tag-filter-bar` for topic, `#subtopic-filter-bar` for subtopic) above the Publications/Working Papers/Manuscripts in Preparation sections — present on both `research.html` and `cv.html`. The subtopic row is **contextual**: it stays hidden until a specific topic is selected, then repopulates with only the subtopics that actually occur under that topic (this keeps the filter bar from listing every subtopic across every topic at once as the taxonomy grows). Selecting a topic and a subtopic filters with AND logic (a paper must match both); "All" on either row leaves that facet unconstrained. On `cv.html`, filtering also determines what prints, since `[hidden]` applies under print media too — filter down to a subset before hitting "Print / Save as PDF" to produce a topic-tailored CV.
   - `tags` values match the `ongoing_projects.json` research-focus titles.
   - `subtopics` are a **shared, reusable vocabulary per topic** — not a one-off restatement of a single paper's title. Pick from (or extend, if a paper genuinely doesn't fit any) the current set: under *Misinformation, Trust & Polarization* — `"Discernment & Correction Tools"`, `"Trust & Cooperation"`, `"Personality & Individual Differences"`, `"Polarization Patterns"`; under *Sustainability* — `"Transportation & Commuting Behavior"`, `"Framing & Motivation"`; under *Well-being* — `"Financial Well-being"`, `"Workplace Well-being"`. Before adding a new subtopic, check whether an existing one already fits — a subtopic that only ever holds one paper defeats the point of the filter (it can't narrow anything down). Never invent values that don't reflect the paper's actual topic.
 - Optional: `abstract`. When present, the card gets a "Show abstract" toggle that reveals this text (expanded by default in print, since the toggle itself doesn't work on a printed page). Use the paper's real, verbatim abstract — never a paraphrase or placeholder. Omit the field entirely if you don't have the real text yet (the toggle simply doesn't render).
+- **On `cv.html`**, none of the above rendering applies to `tags`/`subtopics`/`tldr`/`abstract`/`dataUrl`/`codeUrl`/`pdfPath`/`bibPath` — `Site.paperCitation` only reads `authors`, `year`, `title`, `publication`, and `url` to build one line: `{authors, self bolded} ({year or "n.d."}). {title}. {publication, italicized, or "Manuscript in preparation." if publication is absent}. {url, shown as the literal link text}`. `tags`/`subtopics` are still attached as (unrendered) `data-` attributes so the topic/subtopic filter bar keeps working — filtering still determines what prints, same as before. `Site.paperCitation` renders an `<li>` (not `<article>`) because on `cv.html` (only) `publications-container`/`working-papers-container`/`manuscripts-container` are `<ol reversed>` elements — the browser numbers each list top-down from its total entry count to 1, so the most recent entry (stored first, newest-first) always gets the highest number, with no counting logic to maintain as entries are added/removed. Each of the three sections numbers independently (1 to N within that section, not continuing across sections).
 
 ## data/working_papers.json — preprints / under review
 
-Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.paperCard` helper. Same shape as `publications.json` (including optional `tags` and `abstract`, see above); `publication` is used as a status note (the host name only, e.g. `"SSRN"`) rather than a journal name.
+Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.paperCard` helper. Same shape as `publications.json` (including optional `tags`, `abstract`, `tldr`, `dataUrl`, `codeUrl`, see above); `publication` is used as a status note (the host name only, e.g. `"SSRN"`) rather than a journal name.
 
 ```json
 {
@@ -113,8 +122,8 @@ Array. Rendered by `js/manuscripts_in_prep.js` (also via `Site.paperCard`) as th
 }
 ```
 
-- No `url`, `year`, or `publication` — these are pre-submission drafts. The section heading and intro already say "Manuscripts in Preparation, not yet submitted for review," so repeating that status on every card via `publication` would be redundant; leave the field out. Once a manuscript gets a preprint/DOI, move its entry to `working_papers.json`, add `url`, and add a real `publication` status there (see below).
-- Optional: `tags`, `abstract` (same conventions as `publications.json`/`working_papers.json` above).
+- No `url`, `year`, or `publication` — these are pre-submission drafts. The section heading and intro already say "Manuscripts in Preparation, not yet submitted for review," so repeating that status on every card via `publication` would be redundant; leave the field out. Once a manuscript gets a preprint/DOI, move its entry to `working_papers.json`, add `url`, and add a real `publication` status there (see below). On `cv.html`'s citation view, the missing `publication` is what triggers the automatic "Manuscript in preparation." text (see the `Site.paperCitation` note under `publications.json` above) — no need to add that phrase to the data yourself.
+- Optional: `tags`, `abstract`, `tldr`, `dataUrl`, `codeUrl` (same conventions as `publications.json`/`working_papers.json` above).
 
 ## data/media.json — popular press (extension, not in upstream template)
 
@@ -131,7 +140,8 @@ Array, newest first. Rendered by `js/media.js` as the "Selected Popular Press" s
 ```
 
 - `date` is `YYYY-MM-DD`. Optional: `authors`, `outlet`.
-- Preserve the byline as actually published, even across a name change (e.g. some older entries are authored "McDonald, S." rather than "Hopkins, S.") — that's the accurate historical record, not a typo to fix.
+- Preserve the byline as actually published, even across a name change (e.g. some older entries are authored "McDonald, S." rather than "Hopkins, S.") — that's the accurate historical record, not a typo to fix. Since `Site.boldenAuthors` only bolds "Hopkins, S." (see the note under `publications.json` above), a "McDonald, S." byline correctly renders unbolded.
+- On `cv.html`, printing also appends the piece's `url` in parentheses after the title (`a[href]::after` in `css/styles.css`) so the link is readable on paper, not just clickable on screen.
 
 ## data/talks.json — presentations (extension, not in upstream template)
 
@@ -175,6 +185,50 @@ Array, newest first. Rendered by `js/teaching.js` into the "Teaching" section on
   "term": "Summer 2025–present"
 }
 ```
+
+## data/skills.json — skills, grouped by category (cv.html only)
+
+Array. Rendered by `js/skills.js` into the "Skills" section on `cv.html` (`#skills-container`), reusing the same `.item`/`.item-title`/`.item-description` markup as `education.json`. Not used on `research.html`.
+
+```json
+{
+  "category": "Research & Methods",
+  "skills": "Experimental, Qualitative, and Exploratory Research; Intervention Development; Behavior Mapping"
+}
+```
+
+- `skills` is one free-text string per category, rendered verbatim (not split into a list) — order/punctuation within it (e.g. `;` separating distinct skills, `,` within a single compound phrase) is preserved exactly as written rather than parsed, since it's ambiguous which commas are conjunctive vs. delimiting.
+
+## data/involvement.json — involvement & achievements (cv.html only)
+
+Array, newest first. Rendered by `js/involvement.js` into the "Involvement & Achievements" section on `cv.html` (`#involvement-container`). Not used on `research.html`.
+
+```json
+{
+  "title": "WYSE International Leadership Program Participant",
+  "organization": "WYSE",
+  "term": "January 2024"
+}
+```
+
+- Optional: `organization`, `term`.
+
+## data/memberships.json — professional memberships & affiliations (cv.html only)
+
+Array, newest first. Rendered by `js/memberships.js` into the "Memberships & Affiliations" section on `cv.html` (`#memberships-container`). Not used on `research.html`.
+
+```json
+{
+  "organization": "Association for Psychological Science",
+  "term": "March 2023 – Present"
+}
+```
+
+- Optional: `term`.
+
+## cv.html "References" section — not a data file
+
+A static `<section id="cv-references" class="cv-section">` hardcoded directly in `cv.html` ("References — Available upon request."), not driven by a `data/*.json` file — it's a single fixed sentence, not repeatable list content, so it follows the same "deliberate exception" logic as `contact.html`. It's always visible (no `hidden` attribute, no JSON to load), so it doesn't need an entry in `js/cv-toc.js`'s `WATCHED` list — the TOC picks it up automatically since it scans for any `.cv-section:not([hidden])` once the watched (data-driven) sections have finished loading.
 
 ## data/ongoing_projects.json — "Research Focus" cards / Home teaser tags
 

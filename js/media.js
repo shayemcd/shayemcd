@@ -10,8 +10,15 @@ Site.load("./data/media.json", "media-container", (container, pieces) => {
     else title.textContent = piece.title;
     item.appendChild(title);
 
-    const meta = [piece.authors, piece.outlet, piece.date].filter(Boolean).join(" · ");
-    if (meta) item.appendChild(Site.el("p", "item-meta", meta));
+    const metaParts = [piece.authors && Site.boldenAuthors(piece.authors), piece.outlet, piece.date].filter(Boolean);
+    if (metaParts.length) {
+      const meta = Site.el("p", "item-meta");
+      metaParts.forEach((part, i) => {
+        if (i > 0) meta.appendChild(document.createTextNode(" · "));
+        meta.appendChild(typeof part === "string" ? document.createTextNode(part) : part);
+      });
+      item.appendChild(meta);
+    }
 
     container.appendChild(item);
   });

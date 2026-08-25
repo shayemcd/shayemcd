@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Research & Methods",
+    "skills": "Experimental, Qualitative, and Exploratory Research; Intervention Development; Behavior Mapping"
+  },
+  {
+    "category": "Data & Analysis",
+    "skills": "Advanced Data Analysis, Extraction, and Visualization (RStudio, Python, SQL, PowerBI, NVivo)"
+  },
+  {
+    "category": "Survey & Tools",
+    "skills": "Qualtrics, Survey Design, Behavioral Insights"
+  },
+  {
+    "category": "Project & Leadership",
+    "skills": "Project Management, Coordination, Leadership, and Team Supervision"
+  },
+  {
+    "category": "Design & Communication",
+    "skills": "Visual Design (Photoshop, Illustrator), Data Visualization"
+  }
+]

@@ -6,6 +6,10 @@
  * The section stays hidden unless its JSON file loads and contains data,
  * so removing/emptying a data file cleanly removes the section.
  */
+
+/** Matches this site's own author byline ("Hopkins, S." or "Hopkins, S. A. M.") so it can be bolded wherever it appears in an author list. */
+const SELF_AUTHOR_RE = /Hopkins,\s*S\.(?:\s*[A-Z]\.)*/g;
+
 const Site = {
   /**
    * Fetch a JSON data file. Returns null (instead of throwing) when the
@@ -55,14 +59,44 @@ const Site = {
     return node;
   },
 
+  /** Build a text fragment with this site's own name bolded wherever it appears in an author-list string (e.g. "Hopkins, S."), so it's easy to spot among coauthors. */
+  boldenAuthors(text) {
+    const frag = document.createDocumentFragment();
+    let lastIndex = 0;
+    let match;
+    SELF_AUTHOR_RE.lastIndex = 0;
+    while ((match = SELF_AUTHOR_RE.exec(text))) {
+      if (match.index > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+      frag.appendChild(this.el("strong", null, match[0]));
+      lastIndex = match.index + match[0].length;
+    }
+    frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+    return frag;
+  },
+
   /**
-   * Render one paper card (shared by publications and working papers).
-   * Fields used: title, url, authors, publication, year, pdfPath, bibPath,
-   * tags (top-level topic labels), subtopics (finer-grained labels) — both
-   * feed the two-tier filter bar in js/paper-filters.js — and abstract
-   * (shown behind a Show/Hide toggle).
+   * Render one paper card. Dispatches to a full portfolio-style card on
+   * research.html, or a numbered APA-style citation on cv.html (detected
+   * via the presence of the .cv-page wrapper) — see paperCardFull and
+   * paperCitation below for what each mode actually renders.
    */
   paperCard(paper) {
+    return document.querySelector(".cv-page") ? this.paperCitation(paper) : this.paperCardFull(paper);
+  },
+
+  /**
+   * Full card, used on research.html. Fields used: title, url, authors,
+   * publication, year, pdfPath, bibPath, dataUrl, codeUrl, tags (top-level
+   * topic labels), subtopics (finer-grained labels) — both feed the
+   * two-tier filter bar in js/paper-filters.js — tldr (a plain-language
+   * synthesis) and abstract (the verbatim academic abstract), the latter
+   * two collapsed behind their own Show/Hide toggle. The links row is
+   * ordered PDF/BibTeX, Show abstract, Show TL;DR, Data & Code, Code —
+   * dataUrl is labeled "Data & Code" since it's typically one combined
+   * repo; codeUrl only applies for the rare paper with a separate code
+   * repo, alongside it.
+   */
+  paperCardFull(paper) {
     const card = this.el("article", "paper");
 
     const title = this.el("p", "paper-title");
@@ -71,7 +105,9 @@ const Site = {
     card.appendChild(title);
 
     if (paper.authors) {
-      card.appendChild(this.el("p", "paper-authors", paper.authors));
+      const authorsEl = this.el("p", "paper-authors");
+      authorsEl.appendChild(this.boldenAuthors(paper.authors));
+      card.appendChild(authorsEl);
     }
 
     const venue = [paper.publication, paper.year].filter(Boolean).join(", ");
@@ -98,25 +134,77 @@ const Site = {
     if (paper.abstract) {
       abstractEl = this.el("p", "paper-abstract", paper.abstract);
       abstractEl.hidden = true;
-
-      const toggle = document.createElement("button");
-      toggle.type = "button";
-      toggle.className = "paper-abstract-toggle";
-      toggle.textContent = "Show abstract";
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.addEventListener("click", () => {
-        const show = abstractEl.hidden;
-        abstractEl.hidden = !show;
-        toggle.textContent = show ? "Hide abstract" : "Show abstract";
-        toggle.setAttribute("aria-expanded", String(show));
-      });
-      links.appendChild(toggle);
+      links.appendChild(this.disclosureToggle(abstractEl, "abstract"));
     }
+
+    let tldrEl = null;
+    if (paper.tldr) {
+      tldrEl = this.el("p", "paper-tldr");
+      tldrEl.appendChild(this.el("span", "paper-tldr-label", "In short"));
+      tldrEl.appendChild(document.createTextNode(paper.tldr));
+      tldrEl.hidden = true;
+      links.appendChild(this.disclosureToggle(tldrEl, "TL;DR"));
+    }
+
+    if (paper.dataUrl) links.appendChild(this.link(paper.dataUrl, "Data & Code"));
+    if (paper.codeUrl) links.appendChild(this.link(paper.codeUrl, "Code"));
 
     if (links.childNodes.length) card.appendChild(links);
     if (abstractEl) card.appendChild(abstractEl);
+    if (tldrEl) card.appendChild(tldrEl);
 
     return card;
+  },
+
+  /**
+   * Numbered APA-style reference, used on cv.html in place of the full
+   * portfolio card — just the citation (authors, year, title, venue, link),
+   * no tags/tldr/abstract/data links. Renders as an <li> since its container
+   * (cv.html's #publications-container etc.) is an <ol reversed> — the
+   * browser numbers it top-down from the total entry count to 1, so the
+   * most recent entry (stored first, per the newest-first convention) gets
+   * the highest number and it stays correct as entries are added, with no
+   * counting logic to maintain here. tags/subtopics are kept as data
+   * attributes (unrendered) so the filter bar still works even though the
+   * pills themselves aren't shown.
+   */
+  paperCitation(paper) {
+    const card = this.el("li", "paper paper-citation");
+    if (paper.tags && paper.tags.length) card.dataset.tags = paper.tags.join("|");
+    if (paper.subtopics && paper.subtopics.length) card.dataset.subtopics = paper.subtopics.join("|");
+
+    const line = this.el("p", "paper-citation-text");
+    if (paper.authors) {
+      line.appendChild(this.boldenAuthors(paper.authors));
+      line.appendChild(document.createTextNode(" "));
+    }
+    line.appendChild(document.createTextNode(`(${paper.year || "n.d."}). ${paper.title}. `));
+    if (paper.publication) {
+      line.appendChild(this.el("em", null, paper.publication));
+      line.appendChild(document.createTextNode(". "));
+    } else {
+      line.appendChild(document.createTextNode("Manuscript in preparation. "));
+    }
+    if (paper.url) line.appendChild(this.link(paper.url, paper.url));
+
+    card.appendChild(line);
+    return card;
+  },
+
+  /** Build a Show/Hide `label` toggle button that shows/hides `target` (a hidden element already placed in the card). */
+  disclosureToggle(target, label) {
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "paper-toggle";
+    toggle.textContent = `Show ${label}`;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.addEventListener("click", () => {
+      const show = target.hidden;
+      target.hidden = !show;
+      toggle.textContent = `${show ? "Hide" : "Show"} ${label}`;
+      toggle.setAttribute("aria-expanded", String(show));
+    });
+    return toggle;
   },
 
   /** Create an external link (opens in a new tab). */

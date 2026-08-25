@@ -14,6 +14,9 @@
     "talks-container",
     "grants-container",
     "teaching-container",
+    "skills-container",
+    "involvement-container",
+    "memberships-container",
     "media-container",
   ];
   const loaded = new Set();

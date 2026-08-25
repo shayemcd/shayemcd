@@ -198,7 +198,7 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 .paper-venue { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
 .paper-links { margin: 0.5rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .paper-links a { color: var(--primary); text-decoration: underline; font-size: 0.9rem; }
-.paper-list { display: grid; gap: 1.25rem; }
+.paper-list { display: grid; gap: 1.25rem; margin: 0; padding: 0; }
 
 .paper-tags { margin: 0.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .paper-tag {
@@ -222,7 +222,26 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
   border-radius: 4px;
 }
 
-.paper-abstract-toggle {
+.paper-tldr {
+  margin: 0.75rem 0 0;
+  padding: 0.65em 0.9em;
+  background: var(--primary-light);
+  border-radius: var(--radius);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.paper-tldr-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 0.2em;
+}
+
+.paper-toggle {
   background: none;
   border: none;
   padding: 0;
@@ -233,13 +252,26 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
   text-decoration: underline;
   cursor: pointer;
 }
-.paper-abstract-toggle:hover { color: var(--accent); }
+.paper-toggle:hover { color: var(--accent); }
 .paper-abstract {
   margin: 0.75rem 0 0;
   padding-top: 0.75rem;
   border-top: 1px dashed var(--border);
   font-size: 0.95rem;
 }
+
+/* Numbered APA-style citation, used in place of the full card on cv.html
+   (see Site.paperCitation in js/utils.js). Numbering comes from the native
+   <ol reversed> container (see cv.html) - list-style/::marker give a real
+   hanging indent for free, and "reversed" counts down from the total entry
+   count to 1 without any counting logic to maintain here. */
+.paper-citation {
+  list-style: decimal outside;
+  margin-left: 1.75em;
+}
+.paper-citation::marker { font-weight: 600; color: var(--text-main); }
+.paper-citation-text { margin: 0; color: var(--text-main); }
+.paper-citation-text a { color: var(--primary); text-decoration: underline; word-break: break-word; }
 
 /* --- Research Focus teaser (index.html only; full cards stay on research.html) --- */
 .teaser-section { padding: 2.75rem 0; }
@@ -360,46 +392,70 @@ label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9r
 
 .cv-page .item, .cv-page .paper { border-left: 0; padding-left: 0; }
 .cv-page .item-meta { color: var(--text-muted); font-weight: 400; font-style: italic; font-size: 0.9rem; }
-.cv-page .paper-authors { font-size: 0.9rem; }
-.cv-page .paper-venue { font-style: italic; }
 .cv-page .item-list, .cv-page .paper-list { gap: 1rem; }
 .cv-page .cv-section { margin-bottom: 2rem; }
 .cv-page .talks-subheading { color: var(--text-main); }
 
-/* Per-paper topic/subtopic badges read as colorful "portfolio" pills;
-   restyle to plain inline labels that fit a document-style CV. */
-.cv-page .paper-tag, .cv-page .paper-subtag {
-  display: inline;
-  font-size: 0.8rem;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: normal;
-  color: var(--text-muted);
-  background: none;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-}
-.cv-page .paper-tag:not(:last-child)::after,
-.cv-page .paper-subtag:not(:last-child)::after { content: ','; }
-
 @media print {
-  /* Margins are baked into .shell.cv-page's own padding instead of relying on
-     @page - browsers' print dialogs have a separate "Margins" setting (often
-     defaulting to "None") that overrides @page margin regardless of what's
-     declared here, so an @page margin alone isn't reliably honored. */
-  @page { size: letter; margin: 0; }
+  /* @page margin repeats on every printed page; a container's own padding
+     only ever applies once, at the very top/bottom of its content - so a
+     multi-page CV padded via .shell.cv-page got a top margin on page 1 only.
+     @page margin is the correct, reliable way to get 1in on every page. */
+  @page {
+    size: letter;
+    margin: 1in;
+    /* Page-number support in the @page margin box below is inconsistent
+       across browsers (notably Chrome) - if it doesn't show up, use the
+       print dialog's own "Headers and footers" option as a fallback. */
+    @bottom-center {
+      content: counter(page);
+      font-family: var(--font-body);
+      font-size: 9pt;
+      color: #666;
+    }
+  }
   .site-header, .site-footer, .cookie-notice, .cv-print-btn, .tag-filter-bar, .cv-toc,
-  .paper-tags, .paper-abstract, .paper-abstract-toggle { display: none !important; }
-  body { background: #fff; font-size: 10.5pt; }
+  .paper-tags, .paper-abstract, .paper-toggle { display: none !important; }
+  /* The toggle that would normally reveal it is hidden above (dead on paper),
+     so force the plain-language summary to print regardless of its collapsed
+     state - unlike the dense academic abstract, it's worth having on a CV. */
+  .paper-tldr { display: block !important; }
+  /* rem units are relative to the root, not to body, so a font-size set only
+     on body left every rem-sized element (most of the page) unaffected and
+     printing at the browser's default size - rebasing the root is what
+     actually makes 11pt the consistent, coherent base size sitewide. */
+  html, body { font-size: 11pt; }
+  body { background: #fff; }
+  /* Denser, more document-like line spacing than the on-screen CV view, and
+     justified body text (with hyphenation, so justify doesn't create wide
+     gaps in a narrow print column) for a cleaner, more typeset look. A
+     single-line paragraph (most .item-meta/.cv-links lines) is unaffected -
+     justify only stretches non-final lines, and there the only line IS the
+     final one. */
+  .cv-page { line-height: 1.4; }
+  .cv-page p {
+    text-align: justify;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    orphans: 3;
+    widows: 3;
+  }
   .section { padding: 0; }
   /* .shell sets width via min(); .cv-page separately caps max-width - both
      land on the same element, so override both explicitly here rather than
-     relying on one to beat the other. */
-  .shell.cv-page { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0.75in !important; }
+     relying on one to beat the other. Margin now comes from @page above. */
+  .shell.cv-page { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
   .cv-header-row { display: block; }
   .cv-header-row .btn { display: none; }
   a { color: inherit; text-decoration: none; }
+  /* Press links only show as a link on-screen (blue title); print the
+     underlying URL too so it's readable/usable on paper. */
+  .cv-page .item-title a[href]::after {
+    content: " (" attr(href) ")";
+    font-weight: 400;
+    font-style: normal;
+    word-break: break-word;
+  }
   .paper, .item { break-inside: avoid; }
   .cv-section { break-inside: auto; }
   .cv-section h2, .talks-subheading { break-after: avoid; page-break-after: avoid; }

@@ -4,9 +4,11 @@
     "authors": "Hopkins, S., Costello, T., Pennycook, G., & Rand, D.",
     "publication": "Research Square",
     "year": "2026",
-    "url": "https://doi.org/10.21203/rs.3.rs-8663921/v2",
+    "url": "https://www.researchsquare.com/article/rs-8663921/v1",
     "tags": ["Misinformation, Trust & Polarization"],
     "subtopics": ["Discernment & Correction Tools"],
+    "tldr": "In two experiments with over 1,800 Republicans who believed the 2020 election was stolen, AI chatbots that fact-checked and personalized their responses reduced belief in election fraud claims — with the biggest gains among the most skeptical participants.",
+    "dataUrl": "https://osf.io/2cfkv/overview",
     "abstract": "Elections, while central to democratic functioning, have become increasingly threatened by beliefs about election fraud. Artificial intelligence (AI) provides a novel opportunity to address such false beliefs through dynamic conversation and debunking. Through two experiments (N = 1,802 Republicans from Lucid who endorsed election fraud claims), we examined the use of AI to fact-check 2020 election conspiracies prior to the 2024 US Presidential election. We tested the effects of two treatments (an information-tailored and values-tailored AI dialogue) in which AI fact-checked their claims and tailored arguments to the specific election conspiracy that the participant themselves articulated. Both treatment conditions, when compared to a control dialogue and a simple statement that the conspiracy was incorrect, reduced confidence in their election conspiracy claims. There was no significant difference between information-tailored and values-tailored feedback. Promisingly, participants with the strongest baseline denialism experienced the largest decreases in denialism beliefs. These studies highlight the potential of AI-driven interventions to address election misinformation."
   },
   {
@@ -16,7 +18,10 @@
     "year": "2025",
     "url": "https://doi.org/10.31219/osf.io/bg7fx_v2",
     "tags": ["Misinformation, Trust & Polarization"],
-    "subtopics": ["Personality & Individual Differences"]
+    "subtopics": ["Personality & Individual Differences"],
+    "tldr": "We surveyed thousands of self-identified conspiracy theorists and non-believers on dozens of personality traits, finding conspiracy theorists differ in specific ways — like a stronger draw to hierarchy, belief that events happen for a reason, and feelings of being discriminated against. We also found they're strikingly hard to recruit online: out of 2.7 million people reached, fewer than 1 in 1,000 completed the survey.",
+    "dataUrl": "https://osf.io/ds7xt",
+    "abstract": "The growing prevalence of conspiracy theories, fueled by misinformation and declining trust, has raised concerns about their societal impact. Thus, it has become increasingly necessary to determine the antecedents to conspiratorial beliefs. While existing literature links some personality traits with conspiracist ideation and beliefs, the findings remain disparate and with limited field research. To better understand the associated traits, we conducted a field study where we recruited both conspiracy theorists and non-conspiracy theorists through social media ads and posts. In the survey, they completed a conspiracist ideation scale (the Generic Conspiracist Beliefs Scale) and up to 70 validated scales measuring varying psychological traits. We saw moderate conspiratorial ideation and significant differences in traits between conspiracy theorists and non-conspiracy theorists. These specific traits are largely rooted in epistemic and social motives, and include preferences for individualism and hierarchy, belief in the purpose of events, precognition, rigid and stereotyped views, psi beliefs, experiences of discrimination, lack of open-mindedness, and entitlement rage. Furthermore, we found that conspiracy theorists were more difficult to recruit on social media when targeting based on expected engagement features (e.g., keywords; platform). Despite reaching over 2.7 million people online, high attrition resulted in a survey completion rate of 0.09% (N = 2,359) and only engaging 0.03% of the targeted individuals with conspiratorial content. This study provides insights into the personality traits prevalent among conspiracy theorists and highlights challenges in recruiting them online."
   },
   {
     "title": "Motivating Change: Combining Social Comparison and Equivalency Frames Influence Pro-Environmental Behaviors",
@@ -25,15 +30,21 @@
     "year": "2026",
     "url": "http://osf.io/preprints/psyarxiv/4v6we_v1",
     "tags": ["Sustainability"],
-    "subtopics": ["Framing & Motivation"]
+    "subtopics": ["Framing & Motivation"],
+    "tldr": "In an experiment with over 1,500 people, comparing someone's environmental footprint to what \"typical Americans\" do — or showing the collective impact of everyone's behavior — made people more likely to commit to greener habits, but only when paired with easy-to-grasp numbers (like gallons of gas instead of tons of emissions). The same messaging sometimes backfired for higher-income participants.",
+    "dataUrl": "https://osf.io/hjfxv/overview",
+    "abstract": "Individual-level behaviors account for a majority of global emission levels, but motivating people to adopt more pro-environmental behaviors (PEB) remains a critical challenge. Research shows that brief, behavioral nudges can encourage PEBs. However, limited research has tested the efficacy of multi-dimensional framing. Through an online experiment (N = 1,535), we tested the effects of multi-dimensional message frames, or the combination of norms-based feedback (social comparisons, collective impact, or individual impact) paired with analogical framing (emissions in tons or gallons of gasoline), compared to a control condition. We test how these interventions change their willingness, likelihood, ability, and commitment to modifying their most frequent environmentally harmful behavior. Feedback that compared an individual's environmental behavior to the norm (\"typical Americans\"), or shared the collective emissions impact, when combined with equivalency framing, increased the likelihood and commitment to shift toward pro-environmental behaviors. All other combination frames had non-significant effects. We find that the intervention effects are fully mediated by a theory of planned behavior-like funnel, with social norms and interventions influencing willingness, likelihood, and commitment to behavior change. When individuals felt stronger control over the future of the environment, multi-dimensional frames more strongly motivated change across several treatment conditions. Otherwise, we find evidence of income as a moderator, with some numeric multi-dimensional frames backfiring for higher-income participants. This research offers insights into the efficacy, segmentation potential, and psychological limitations of multidimensional frames in sustainable decision-making. Leveraging these nuances could improve low-cost, scalable environmental framing strategies for policy, environmental advocacy, and other climate efforts."
   },
   {
     "title": "Who are Effective and Trustworthy Messengers for Election-Related Communications? How Local Messengers Impact Effectiveness of Psychological Inoculation",
     "authors": "Sherlock, J., Hopkins, S., & Moore, D.",
     "publication": "Research Square",
+    "year": "2026",
     "url": "https://doi.org/10.21203/rs.3.rs-8663461/v1",
     "tags": ["Misinformation, Trust & Polarization"],
     "subtopics": ["Discernment & Correction Tools", "Trust & Cooperation"],
+    "tldr": "Who delivers a fact-check matters: across three experiments (n = 2,317), messages debunking election misinformation worked better when they came from local messengers like pastors and election officials than from typical voters or big institutions — improving people's ability to tell true from false headlines by up to 12 percentage points.",
+    "dataUrl": "https://osf.io/8ad3h/overview",
     "abstract": "Trust serves as a critical heuristic that facilitates basic democratic functioning. The rise of election-related misinformation has been linked to a decline in democratic trust. Recent research suggests that psychological inoculation, or pre-exposure to how misinformation works, may be an effective method to address misinformation beliefs. We extend this line of inquiry to examine the effectiveness of inoculation messages in countering election-related misinformation and to explore whether inoculation interventions are subject to messenger effects, a phenomenon in which information is evaluated by the identity of the person delivering it, rather than its objective content. Using three online experiments (n = 2317), we test how different messengers (e.g., election organizations, election officials, and non-election-related individuals and entities) impact participants’ discernment, trust, and engagement with actual true and false headlines. We find that messenger identity affects the effectiveness of inoculation messages. Specifically, local, male messengers—such as pastors and election officials—were more effective than a typical voter and other institution-based messengers at improving discernment between true and false information by up to 12 percentage points. These messenger effects were strongest in the period leading up to the 2022 US midterm elections and for individuals more susceptible to believing misinformation."
   },
   {
@@ -44,6 +55,7 @@
     "url": "http://dx.doi.org/10.2139/ssrn.5159718",
     "tags": ["Sustainability"],
     "subtopics": ["Transportation & Commuting Behavior"],
+    "tldr": "Across four studies, telling people sustainable commuting is good for the environment shifted their attitudes — but only cutting the cost and hassle of alternatives, not the environmental pitch, actually got people to change their parking and commuting behavior.",
     "abstract": "Reducing single-occupancy vehicle (SOV) commuting is a critical challenge for urban sustainability, yet many existing policies fail to account for the behavioral factors that influence commuting choices. This paper examines how financial framing, friction reduction, and payment saliency impact parking decisions, drawing on insights from both lab and field experiments. In Study 1, a lab-based experiment tested the effects of ordering and framing transportation choices, finding that both financial and environmental messaging increased stated preferences for sustainable commuting. However, Study 2, a field experiment on parking permit selection, revealed that only financial framing, when paired with friction reduction, significantly increased sign-ups for daily parking permits—suggesting that while environmental appeals influence attitudes, financial considerations drive real-world behavior. Study 3 extended this work by testing payment saliency interventions, demonstrating that daily cost notifications combined with alternative transportation options were most effective at reducing parking frequency. Study 4 further explored self-directed decision tools, finding that a parking cost calculator increased engagement but did not independently shift behavior. Collectively, these findings highlight the disconnect between stated and actual behavior, emphasizing that while people express pro-environmental intentions, monetary factors and decision effort ultimately shape commuting choices. Our results suggest that restructuring parking policies—such as replacing annual permits with daily pricing, increasing cost saliency through receipts and notifications, and reducing friction for alternative modes—can be effective in shifting commuter behavior. We discuss the implications for transportation demand management (TDM) policies, highlighting the need for behaviorally informed strategies that align financial incentives with sustainability goals."
   },
   {
@@ -54,6 +66,8 @@
     "url": "https://doi.org/10.31234/osf.io/czgkj_v1",
     "tags": ["Well-being"],
     "subtopics": ["Financial Well-being"],
+    "tldr": "In a field experiment with over 1,300 clients finishing a debt-management plan, warm handoff emails connecting them to a financial advisor got stronger engagement when sent as a longer four-email series — and people of color engaged with these resources at notably higher rates.",
+    "dataUrl": "https://osf.io/eqswt/overview",
     "abstract": "Prior research highlights the disparity in wealth-building activity participation among lower-to-middle-income (LMI) households, resulting in issues like the racial wealth gap. This presents an opportunity to improve how financial institutions offer products through proven strategies such as warm handoffs. In collaboration with a debt management and a financial services company, we conducted a field experiment testing the impact of a warm handoff process. This culminated in an offer to engage in a financial advisor call for further guidance on the next steps in their financial journey for participants completing a debt management plan (DMP). In the months leading up to their DMP graduation, 1,329 clients received either a four-email handoff over four months (high-touch), a one-email handoff (streamlined), or no handoff email (the control). We see stronger open and click-through rates for the handoff email in the high-touch treatment, compared to the streamlined treatment. Otherwise, we see statistically significant differences in open rates by race, with people of color engaging with these resources at higher rates. This suggests that behaviorally informed warm handoff strategies could effectively improve engagement with financial resources and financial well-being, particularly for people of color."
   },
   {
@@ -63,6 +77,7 @@
     "year": "2023",
     "url": "https://advanced-hindsight.com/wp-content/uploads/2023/02/CAH-Fresh-Start-Effect-Report.pdf",
     "tags": ["Sustainability"],
-    "subtopics": ["Transportation & Commuting Behavior"]
+    "subtopics": ["Transportation & Commuting Behavior"],
+    "tldr": "We mailed a \"Welcome Box\" of transportation resources to 650 households that had just moved, testing whether the disruption of a move is a good moment to nudge people away from solo driving. Over the next three months, drive-alone mileage grew far less for Welcome Box recipients (+6 miles) than for a control group that got only a postcard (+25 miles) — suggesting a simple, low-cost nudge at moving time can meaningfully curb car-dependent habits."
   }
 ]
