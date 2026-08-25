@@ -33,7 +33,7 @@ Publications/Working Papers/Manuscripts in Preparation share a two-tier filter b
 
 `js/profile.js` reads `data/profile.json` once and renders into two containers on Home: `#hero-container` (always shown) and `#about-container` (hidden unless `bio` has entries). `data/education.json` is only used on `cv.html`, not Home — the Education section was dropped from `index.html`; see `schemas.md` for how to bring it back there too.
 
-Every page also loads `js/site-chrome.js`, which reads `data/profile.json` to set `document.title` (using the page's `<body data-page-title="...">` attribute), the nav brand text (`#nav-name`), and the footer copyright line (`#footer-name`). Set `data-page-title` on every page except `index.html` (Home falls back to the profile title).
+Every page also loads `js/site-chrome.js`, which reads `data/profile.json` to set `document.title` (using the page's `<body data-page-title="...">` attribute), the nav brand text (`#nav-name`), the footer copyright line (`#footer-name`), and the footer contact links (`#footer-links`, from `profile.json`'s `links` field — the same list `cv.html`'s header renders, minus any `"CV"` entry). Set `data-page-title` on every page except `index.html` (Home falls back to the profile title).
 
 **Deliberate exception** — hand-written, not JSON-driven, because it isn't repeatable list content: `contact.html` (`#contact`, a Formspree form). Leave this as static HTML.
 

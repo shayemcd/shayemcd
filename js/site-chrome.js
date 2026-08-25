@@ -17,4 +17,13 @@
   if (footerName) {
     footerName.textContent = `© ${new Date().getFullYear()} ${profile.name}. All rights reserved.`;
   }
+
+  const footerLinks = document.getElementById("footer-links");
+  if (footerLinks) {
+    const links = (profile.links || []).filter((link) => link.label !== "CV");
+    links.forEach((link, i) => {
+      if (i > 0) footerLinks.appendChild(document.createTextNode(" · "));
+      footerLinks.appendChild(Site.link(link.url, link.label));
+    });
+  }
 })();

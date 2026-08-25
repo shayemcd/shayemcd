@@ -12,10 +12,12 @@
     const wrapper = Site.el("div", "profile");
 
     if (profile.photoPath) {
+      const photoWrap = Site.el("div", "profile-photo-wrap");
       const img = Site.el("img", "profile-photo");
       img.src = profile.photoPath;
       img.alt = profile.name;
-      wrapper.appendChild(img);
+      photoWrap.appendChild(img);
+      wrapper.appendChild(photoWrap);
     }
 
     const body = Site.el("div", "profile-body");

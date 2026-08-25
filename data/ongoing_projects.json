@@ -1,14 +1,17 @@
 [
   {
     "title": "Misinformation, Trust & Polarization",
-    "description": "Studying how false beliefs form and persist, how institutional trust erodes, and how information environments shape attitudes and behavior. Recent work examines gamified tools, AI-mediated conversations, and messengers to improve belief accuracy and reduce polarization."
+    "description": "Studying how false beliefs form and persist, how institutional trust erodes, and how information environments shape attitudes and behavior. Recent work examines gamified tools, AI-mediated conversations, and messengers to improve belief accuracy and reduce polarization.",
+    "icon": "trust"
   },
   {
     "title": "Well-being",
-    "description": "Studying what helps people thrive — from the motivation and flow behind developing expertise ('joyful expertise') to financial and workplace wellbeing. Work spans household savings behavior, support-based interventions for employee resilience, and strategies like warm handoffs that improve financial access for underserved communities."
+    "description": "Studying what helps people thrive — from the motivation and flow behind developing expertise ('joyful expertise') to financial and workplace wellbeing. Work spans household savings behavior, support-based interventions for employee resilience, and strategies like warm handoffs that improve financial access for underserved communities.",
+    "icon": "wellbeing"
   },
   {
     "title": "Sustainability",
-    "description": "Testing interventions to shift environmentally relevant behaviors, including transportation mode use and climate-related decision-making through incentives, disincentives, and framing."
+    "description": "Testing interventions to shift environmentally relevant behaviors, including transportation mode use and climate-related decision-making through incentives, disincentives, and framing.",
+    "icon": "sustainability"
   }
 ]

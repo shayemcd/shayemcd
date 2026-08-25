@@ -62,9 +62,18 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 /* Layout */
 .shell { width: min(var(--max-width), 92%); margin: 0 auto; }
 .section { padding: clamp(3rem, 6vw, 4.5rem) 0; scroll-margin-top: 5.5rem; }
-.section.muted { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .section > .shell > h2 { margin-bottom: 0.5rem; }
 .section-intro { max-width: 65ch; }
+
+/* Muted sections get a faint paper-grain fill - reinforces the "warm paper"
+   the palette already names in --bg-body. */
+.section.muted {
+  background-color: var(--surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.176 0 0 0 0 0.31 0 0 0 0 0.243 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
 
 /* Header & Nav */
 .site-header {
@@ -117,6 +126,12 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
   margin-bottom: 0.75rem;
 }
 
+/* Thin topographic-line accent, used sparingly under a section heading
+   (Research Focus, About) instead of a hard rule. */
+.divider-topo { max-width: 200px; margin: 1.75rem 0; }
+.divider-topo svg { width: 100%; height: 13px; display: block; }
+.divider-topo path { fill: none; stroke: var(--primary); stroke-width: 1.4; opacity: 0.4; }
+
 /* Buttons */
 .btn {
   display: inline-flex; justify-content: center; align-items: center;
@@ -153,6 +168,23 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 }
 .card:hover { border-color: var(--primary); }
 
+/* Research Focus topic icon (Site.focusIcon, js/utils.js) - a circle badge
+   sized differently depending on where it's placed: larger on the full card
+   (research.html), smaller in the Home teaser row. */
+.focus-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.focus-icon svg { width: 58%; height: 58%; }
+.project-card .focus-icon { width: 60px; height: 60px; margin-bottom: 1.1rem; }
+
 /* Lists */
 .list-clean { list-style: none; padding: 0; margin: 0; }
 .list-clean li {
@@ -165,17 +197,30 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 
 /* --- Profile / hero (rendered by js/profile.js) -------------------------- */
 .profile { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; gap: 3rem; }
+
+.profile-photo-wrap { position: relative; justify-self: center; width: 100%; max-width: 300px; }
+.profile-photo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -14%;
+  background: radial-gradient(closest-side, var(--primary-light), transparent 72%);
+  z-index: 0;
+}
 .profile-photo {
+  position: relative;
+  z-index: 2;
+  display: block;
   width: 100%;
-  max-width: 220px;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  aspect-ratio: 4 / 5;
+  /* Organic "blob" outline in place of a plain circle. */
+  border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
   border: 3px solid var(--surface);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
   object-fit: cover;
   object-position: center top;
-  justify-self: center;
 }
+
+
 .profile-body { order: -1; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
 
@@ -279,7 +324,11 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 .teaser-copy { max-width: 46ch; }
 .teaser-copy .pill { margin-bottom: 0.6rem; }
 .teaser-lede { margin: 0; color: var(--text-main); font-size: 1.02rem; }
-.teaser-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; flex-shrink: 0; }
+.teaser-focus-row { display: flex; flex-wrap: wrap; gap: 1.5rem 1.75rem; flex-shrink: 0; }
+.teaser-focus-item { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; width: 104px; text-align: center; }
+.teaser-focus-item .focus-icon { transition: background 0.2s ease, color 0.2s ease; }
+.teaser-focus-item:hover .focus-icon { background: var(--primary); color: #fff; }
+.teaser-focus-label { font-weight: 600; font-size: 0.82rem; line-height: 1.3; color: var(--text-main); }
 .tag-link {
   display: inline-block;
   padding: 0.55em 1.1em;
@@ -304,6 +353,7 @@ p.lede { font-size: 1.1rem; line-height: 1.55; color: var(--text-main); font-wei
 .tag-filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; padding: 1.75rem 0 0; }
 .tag-filter-bar[hidden] { display: none; }
 #subtopic-filter-bar { padding-top: 0.75rem; }
+.filter-bar-shell { margin-bottom: 1.5rem; }
 .tag-filter-bar::before {
   font-size: 0.75rem;
   font-weight: 700;
@@ -396,24 +446,29 @@ label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9r
 .cv-page .cv-section { margin-bottom: 2rem; }
 .cv-page .talks-subheading { color: var(--text-main); }
 
-@media print {
-  /* @page margin repeats on every printed page; a container's own padding
-     only ever applies once, at the very top/bottom of its content - so a
-     multi-page CV padded via .shell.cv-page got a top margin on page 1 only.
-     @page margin is the correct, reliable way to get 1in on every page. */
-  @page {
-    size: letter;
-    margin: 1in;
-    /* Page-number support in the @page margin box below is inconsistent
-       across browsers (notably Chrome) - if it doesn't show up, use the
-       print dialog's own "Headers and footers" option as a fallback. */
-    @bottom-center {
-      content: counter(page);
-      font-family: var(--font-body);
-      font-size: 9pt;
-      color: #666;
-    }
+/* @page margin repeats on every printed page; a container's own padding only
+   ever applies once, at the very top/bottom of its content - so a multi-page
+   CV padded via .shell.cv-page got a top margin on page 1 only. @page margin
+   is the correct, reliable way to get 1in on every page. It's declared at the
+   top level rather than nested inside @media print - @page only ever applies
+   during print/pagination anyway, and some browsers (notably older WebKit,
+   relevant since this is exported from Safari on macOS/iOS too) handle a
+   nested @page rule inconsistently. */
+@page {
+  size: letter;
+  margin: 1in;
+  /* Page-number support in the @page margin box below is inconsistent
+     across browsers (notably Chrome) - if it doesn't show up, use the
+     print dialog's own "Headers and footers" option as a fallback. */
+  @bottom-center {
+    content: counter(page);
+    font-family: var(--font-body);
+    font-size: 9pt;
+    color: #666;
   }
+}
+
+@media print {
   .site-header, .site-footer, .cookie-notice, .cv-print-btn, .tag-filter-bar, .cv-toc,
   .paper-tags, .paper-abstract, .paper-toggle { display: none !important; }
   /* The toggle that would normally reveal it is hidden above (dead on paper),
@@ -508,8 +563,9 @@ label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9r
 @media (max-width: 768px) {
   .hero-grid, .profile { grid-template-columns: 1fr; }
   .profile-body { order: 0; }
-  .profile-photo { max-width: 140px; }
+  .profile-photo-wrap { max-width: 200px; }
   .grid.two { grid-template-columns: 1fr; }
+  .teaser-focus-row { gap: 1.25rem 1.5rem; }
 
   .nav-toggle { display: block; }
   .nav-links {

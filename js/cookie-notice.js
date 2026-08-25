@@ -29,9 +29,14 @@
     if (!banner) return;
     banner.hidden = false;
 
+    const dismissTimer = setTimeout(() => {
+      banner.hidden = true;
+    }, 5000);
+
     const accept = banner.querySelector("[data-cookie-accept]");
     if (accept) {
       accept.addEventListener("click", () => {
+        clearTimeout(dismissTimer);
         localStorage.setItem(CONSENT_KEY, "accepted");
         banner.hidden = true;
         loadAnalytics();

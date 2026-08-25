@@ -62,7 +62,7 @@ Array, newest-ending-first (an ongoing "present" role goes first, then most rece
 
 ## data/publications.json — published papers
 
-Array, ordered by year (newest first). Rendered by `js/publications.js`, via the shared `Site.paperCard` helper in `js/utils.js`. `Site.paperCard` renders differently per page: the full card described below on `research.html`, or a numbered APA-style citation (authors, year, title, venue, link only — no tags/tldr/abstract/data links) on `cv.html`, via `Site.paperCitation` — see the note at the end of this section. Everywhere an `authors` string is rendered (both card modes, plus `js/media.js`), `Site.boldenAuthors` bolds this site owner's own byline within it.
+Array, ordered by year (newest first). Rendered by `js/publications.js`, via the shared `Site.paperCard` helper in `js/utils.js`. `Site.paperCard` renders differently per page: the full card described below on `research.html`, or a numbered APA-style citation (authors, year, title, venue, link only — no tags/tldr/abstract/data links) on `cv.html`, via `Site.paperCitation` — see the note at the end of this section. Everywhere an `authors` string is rendered (both card modes, plus `js/media.js`), `Site.boldenAuthors` bolds this site owner's own byline within it — matched under either surname it's been published under, "Hopkins, S." (current) or "McDonald, S." (before a name change), see the note under `media.json` below.
 
 ```json
 {
@@ -85,7 +85,7 @@ Array, ordered by year (newest first). Rendered by `js/publications.js`, via the
 - Optional: `tldr` — a short (1-2 sentence) plain-language synthesis of the paper. Like `abstract`, it's collapsed behind its own "Show TL;DR" toggle; on `cv.html`, it's force-printed regardless of toggle state since it's more useful on a printed CV than the dense academic abstract, which stays hidden in print. This is the "what's this paper actually about" line for a non-academic visitor; it should paraphrase in plain English, not restate the abstract's jargon (and isn't necessarily drawn from the academic `abstract` — an executive summary or report conclusion works too, see the Fresh Start Effect entry in `working_papers.json`). Omit if you don't have one yet — the card renders fine without it.
 - The links row is ordered: PDF, BibTeX, Show abstract, Show TL;DR, Data & Code, Code.
 - Optional: `dataUrl`, `codeUrl` — links to the paper's public data and code (OSF, Dataverse, GitHub, etc.). `dataUrl` renders as "Data & Code" since data and code typically live in one combined repo (e.g. an OSF project); `codeUrl` is only for the rare paper with a separate code repo, and renders as an additional "Code" link alongside it. Only add real, working links — never a placeholder or a guess at where a repo "should" be.
-- Optional: `tags` (array of strings) and `subtopics` (array of strings) — a two-tier taxonomy. A paper can carry more than one value in either array when it genuinely spans themes (e.g. the Messengers working paper is tagged both `"Discernment & Correction Tools"` and `"Trust & Cooperation"`) — don't force a single value where two apply. Both render as pills on the card (`tags` filled, `subtopics` outlined) and feed the two-tier filter bar (`js/paper-filters.js`, two rows: `#tag-filter-bar` for topic, `#subtopic-filter-bar` for subtopic) above the Publications/Working Papers/Manuscripts in Preparation sections — present on both `research.html` and `cv.html`. The subtopic row is **contextual**: it stays hidden until a specific topic is selected, then repopulates with only the subtopics that actually occur under that topic (this keeps the filter bar from listing every subtopic across every topic at once as the taxonomy grows). Selecting a topic and a subtopic filters with AND logic (a paper must match both); "All" on either row leaves that facet unconstrained. On `cv.html`, filtering also determines what prints, since `[hidden]` applies under print media too — filter down to a subset before hitting "Print / Save as PDF" to produce a topic-tailored CV.
+- Optional: `tags` (array of strings) and `subtopics` (array of strings) — a two-tier taxonomy. A paper can carry more than one value in either array when it genuinely spans themes (e.g. the Messengers working paper is tagged both `"Discernment & Correction Tools"` and `"Trust & Cooperation"`) — don't force a single value where two apply. Both render as pills on the card (`tags` filled, `subtopics` outlined) and feed the two-tier filter bar (`js/paper-filters.js`, two rows: `#tag-filter-bar` for topic, `#subtopic-filter-bar` for subtopic) above the Publications/Working Papers/Manuscripts in Preparation/Selected Popular Press sections — present on both `research.html` and `cv.html`. `media.json` entries use the same `tags`/`subtopics` fields and are folded into this same filter (see the note under `media.json` below). The subtopic row is **contextual**: it stays hidden until a specific topic is selected, then repopulates with only the subtopics that actually occur under that topic (this keeps the filter bar from listing every subtopic across every topic at once as the taxonomy grows). Selecting a topic and a subtopic filters with AND logic (an item must match both); "All" on either row leaves that facet unconstrained. On `cv.html`, filtering also determines what prints, since `[hidden]` applies under print media too — filter down to a subset before hitting "Print / Save as PDF" to produce a topic-tailored CV.
   - `tags` values match the `ongoing_projects.json` research-focus titles.
   - `subtopics` are a **shared, reusable vocabulary per topic** — not a one-off restatement of a single paper's title. Pick from (or extend, if a paper genuinely doesn't fit any) the current set: under *Misinformation, Trust & Polarization* — `"Discernment & Correction Tools"`, `"Trust & Cooperation"`, `"Personality & Individual Differences"`, `"Polarization Patterns"`; under *Sustainability* — `"Transportation & Commuting Behavior"`, `"Framing & Motivation"`; under *Well-being* — `"Financial Well-being"`, `"Workplace Well-being"`. Before adding a new subtopic, check whether an existing one already fits — a subtopic that only ever holds one paper defeats the point of the filter (it can't narrow anything down). Never invent values that don't reflect the paper's actual topic.
 - Optional: `abstract`. When present, the card gets a "Show abstract" toggle that reveals this text (expanded by default in print, since the toggle itself doesn't work on a printed page). Use the paper's real, verbatim abstract — never a paraphrase or placeholder. Omit the field entirely if you don't have the real text yet (the toggle simply doesn't render).
@@ -135,12 +135,16 @@ Array, newest first. Rendered by `js/media.js` as the "Selected Popular Press" s
   "authors": "Hopkins, S. & Shah, K.",
   "outlet": "Employee Benefits News",
   "date": "2025-04-10",
-  "url": "https://..."
+  "url": "https://...",
+  "tags": ["Well-being"],
+  "subtopics": ["Workplace Well-being"]
 }
 ```
 
-- `date` is `YYYY-MM-DD`. Optional: `authors`, `outlet`.
-- Preserve the byline as actually published, even across a name change (e.g. some older entries are authored "McDonald, S." rather than "Hopkins, S.") — that's the accurate historical record, not a typo to fix. Since `Site.boldenAuthors` only bolds "Hopkins, S." (see the note under `publications.json` above), a "McDonald, S." byline correctly renders unbolded.
+- `date` is `YYYY-MM-DD`. Optional: `authors`, `outlet`, `tags`, `subtopics`, `cvOnly`.
+- Preserve the byline as actually published, even across a name change (e.g. some older entries are authored "McDonald, S." rather than "Hopkins, S.") — that's the accurate historical record, not a typo to fix. `Site.boldenAuthors` bolds either surname (see the note under `publications.json` above), so a "McDonald, S." byline bolds the same as a "Hopkins, S." one.
+- `tags`/`subtopics` use the same vocabulary and conventions as `publications.json` (see above) and fold press pieces into the same topic/subtopic filter bar as the papers sections — a piece with no natural fit in the existing topics (e.g. a general-interest history/outreach post, not tied to any research topic) should simply omit both fields rather than force a bad match; it then always shows regardless of the active filter, same as an untagged paper would.
+- Optional `cvOnly: true` marks a piece as CV-only — `js/media.js` skips it on `research.html`'s "Selected Popular Press" section but still renders it on `cv.html`. Use this for pieces that belong in the historical record of a CV (e.g. outreach writing not tied to a research topic) but would look out of place in the portfolio-facing Research page.
 - On `cv.html`, printing also appends the piece's `url` in parentheses after the title (`a[href]::after` in `css/styles.css`) so the link is readable on paper, not just clickable on screen.
 
 ## data/talks.json — presentations (extension, not in upstream template)
@@ -237,13 +241,16 @@ Array. Currently used for the three research-focus themes (Misinformation/Trust/
 ```json
 {
   "title": "Misinformation, Trust & Polarization",
-  "description": "Studying how false beliefs form and persist..."
+  "description": "Studying how false beliefs form and persist...",
+  "icon": "trust"
 }
 ```
 
+- Optional: `icon`. One of `"trust"`, `"wellbeing"`, `"sustainability"` — keys into the `FOCUS_ICONS` map in `js/utils.js` (`Site.focusIcon`), a small set of hand-drawn line icons. An unrecognized or omitted value just renders without an icon, same as any other optional field. Adding a fourth research-focus theme means adding a matching entry to `FOCUS_ICONS` too, or leaving `icon` off.
+
 `js/ongoing_projects.js` renders this file twice, differently per page (both from the same data, so there's one place to edit topic names):
-- `research.html`'s `#projects-container` gets the full cards (`title` + `description`).
-- `index.html`'s `#research-teaser-container` gets a compact row of `title`-only tags (class `tag-link`) linking to `research.html#research` — `description` isn't used there. The teaser's lede sentence is static HTML in `index.html`, not data-driven, since it's a one-off sentence rather than repeatable list content.
+- `research.html`'s `#projects-container` gets the full cards (`icon` + `title` + `description`).
+- `index.html`'s `#research-teaser-container` gets a compact row of `icon` + `title` links (class `teaser-focus-item`) linking to `research.html#research` — `description` isn't used there. The teaser's lede sentence is static HTML in `index.html`, not data-driven, since it's a one-off sentence rather than repeatable list content.
 
 `title` values double as the `tags` used to filter Publications/Working Papers (see below) — keep them in sync if you rename one.
 

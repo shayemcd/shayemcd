@@ -7,10 +7,40 @@
  * so removing/emptying a data file cleanly removes the section.
  */
 
-/** Matches this site's own author byline ("Hopkins, S." or "Hopkins, S. A. M.") so it can be bolded wherever it appears in an author list. */
-const SELF_AUTHOR_RE = /Hopkins,\s*S\.(?:\s*[A-Z]\.)*/g;
+/** Matches this site's own author byline under either surname it's been published under - "Hopkins, S." (current) or "McDonald, S." (before a name change) - each with optional further initials (e.g. "Hopkins, S. A. M.") - so it can be bolded wherever it appears in an author list. */
+const SELF_AUTHOR_RE = /(?:Hopkins|McDonald),\s*S\.(?:\s*[A-Z]\.)*/g;
+
+/**
+ * Line-icon markup for the Research Focus topics, keyed by
+ * ongoing_projects.json's "icon" field. Plain shape primitives (circles,
+ * lines, short 2-point paths) rather than traced artwork, so they stay
+ * legible at small sizes and match the site's thin, uncluttered line style.
+ * currentColor lets CSS control the color per placement (card vs teaser).
+ */
+const FOCUS_ICONS = {
+  trust: `<circle cx="20" cy="10" r="3.2"/><circle cx="9" cy="28" r="3.2"/><circle cx="31" cy="28" r="3.2"/><path d="M20 13.2 11.4 24.8M20 13.2 28.6 24.8M12.2 28 27.8 28"/>`,
+  wellbeing: `<circle cx="20" cy="9.5" r="3.4"/><path d="M20 12.9V24M20 16 13 10M20 16 27 10M20 24 14 31M20 24 26 31"/>`,
+  sustainability: `<circle cx="20" cy="20" r="11"/><ellipse cx="20" cy="20" rx="4.6" ry="11"/><path d="M9 20h22M11.5 13Q20 17 28.5 13M11.5 27Q20 23 28.5 27"/>`,
+};
 
 const Site = {
+  /**
+   * Build a Research Focus icon: an inline SVG (line style, stroke =
+   * currentColor) wrapped in a `<span class="focus-icon">` so CSS can size
+   * and color it per context. Returns null for an unknown/missing icon name
+   * so a card without one just renders without an icon, same as any other
+   * optional field on this site.
+   */
+  focusIcon(name) {
+    const shape = FOCUS_ICONS[name];
+    if (!shape) return null;
+    const wrap = this.el("span", "focus-icon");
+    wrap.innerHTML = `<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${shape}</svg>`;
+    return wrap;
+  },
+
+
+
   /**
    * Fetch a JSON data file. Returns null (instead of throwing) when the
    * file is missing or malformed so a broken file hides its section

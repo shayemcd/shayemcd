@@ -4,55 +4,69 @@
     "authors": "Hopkins, S. & Shah, K.",
     "outlet": "Employee Benefits News",
     "date": "2025-04-10",
-    "url": "https://www.benefitnews.com/opinion/why-gratitude-and-support-are-the-missing-pieces-in-workplace-well-being"
+    "url": "https://www.benefitnews.com/opinion/why-gratitude-and-support-are-the-missing-pieces-in-workplace-well-being",
+    "tags": ["Well-being"],
+    "subtopics": ["Workplace Well-being"]
   },
   {
     "title": "4 Ways to Help Folks Grapple with Retirement (While It Still Makes a Difference)",
     "authors": "Tatman, T., Hopkins, S., Dorrance, J., & Shah, K.",
     "outlet": "The Financial Brand",
     "date": "2025-04-01",
-    "url": "https://thefinancialbrand.com/news/bank-marketing/how-banks-can-help-consumers-face-retirement-while-it-still-makes-a-difference-188019"
+    "url": "https://thefinancialbrand.com/news/bank-marketing/how-banks-can-help-consumers-face-retirement-while-it-still-makes-a-difference-188019",
+    "tags": ["Well-being"],
+    "subtopics": ["Financial Well-being"]
   },
   {
     "title": "These behavioral science strategies can help financial providers bridge the racial wealth gap",
     "authors": "Shah, K., & Hopkins, S.",
     "outlet": "TriplePundit",
     "date": "2024-12-12",
-    "url": "https://www.triplepundit.com/story/2024/behavioral-science-racial-wealth-gap/815326"
+    "url": "https://www.triplepundit.com/story/2024/behavioral-science-racial-wealth-gap/815326",
+    "tags": ["Well-being"],
+    "subtopics": ["Financial Well-being"]
   },
   {
     "title": "The making of an expert: The joy factor",
     "authors": "Hopkins, S., Fox, K., Castro Cosio, T., & Frech La Rosa, H.",
     "outlet": "BehavioralEconomics.com | The BE Hub",
     "date": "2024-03-21",
-    "url": "https://www.behavioraleconomics.com/the-making-of-an-expert-the-joy-factor/"
+    "url": "https://www.behavioraleconomics.com/the-making-of-an-expert-the-joy-factor/",
+    "tags": ["Well-being"],
+    "subtopics": ["Workplace Well-being"]
   },
   {
     "title": "How to depolarize ourselves: Communication and understanding across cultures",
     "authors": "Hopkins, S., & Ricks, S.",
     "outlet": "BehavioralEconomics.com | The BE Hub",
     "date": "2023-03-03",
-    "url": "https://www.behavioraleconomics.com/how-to-depolarize-ourselves-communication-and-understanding-across-cultures/"
+    "url": "https://www.behavioraleconomics.com/how-to-depolarize-ourselves-communication-and-understanding-across-cultures/",
+    "tags": ["Misinformation, Trust & Polarization"],
+    "subtopics": ["Polarization Patterns"]
   },
   {
     "title": "William Cross' reform school of black psychology",
     "authors": "Hopkins, S.",
-    "outlet": "Center for Advanced Hindsight",
+    "outlet": "Duke University",
     "date": "2023-02-20",
-    "url": "https://advanced-hindsight.com/blog/william-cross-reform-school-of-black-psychology/"
+    "url": "https://advanced-hindsight.com/blog/william-cross-reform-school-of-black-psychology/",
+    "cvOnly": true
   },
   {
     "title": "Transparency: A tool to build election trust",
     "authors": "Sherlock, J., Grainger, R., McDonald, S., & Daly, M.",
     "outlet": "BehavioralEconomics.com | The BE Hub",
     "date": "2022-05-24",
-    "url": "https://www.behavioraleconomics.com/transparency-a-tool-to-build-election-trust/"
+    "url": "https://www.behavioraleconomics.com/transparency-a-tool-to-build-election-trust/",
+    "tags": ["Misinformation, Trust & Polarization"],
+    "subtopics": ["Trust & Cooperation"]
   },
   {
     "title": "Black History Month Spotlight: Linda Datcher Loury",
     "authors": "McDonald, S.",
-    "outlet": "Center for Advanced Hindsight",
+    "outlet": "Duke University",
     "date": "2022-02-18",
-    "url": "https://advanced-hindsight.com/blog/black-history-month-spotlight-linda-datcher-loury/"
+    "url": "https://advanced-hindsight.com/blog/black-history-month-spotlight-linda-datcher-loury/",
+    "cvOnly": true
   }
 ]
