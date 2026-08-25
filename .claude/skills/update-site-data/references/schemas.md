@@ -62,7 +62,7 @@ Array, newest-ending-first (an ongoing "present" role goes first, then most rece
 
 ## data/publications.json — published papers
 
-Array, ordered by year (newest first). Rendered by `js/publications.js`, via the shared `Site.paperCard` helper in `js/utils.js`. `Site.paperCard` renders differently per page: the full card described below on `research.html`, or a numbered APA-style citation (authors, year, title, venue, link only — no tags/tldr/abstract/data links) on `cv.html`, via `Site.paperCitation` — see the note at the end of this section. Everywhere an `authors` string is rendered (both card modes, plus `js/media.js`), `Site.boldenAuthors` bolds this site owner's own byline within it — matched under either surname it's been published under, "Hopkins, S." (current) or "McDonald, S." (before a name change), see the note under `media.json` below.
+Array. `js/publications.js` sorts entries by `year` (newest first, via `Site.sortByYear` in `js/utils.js`) before rendering, so display order doesn't depend on the file's entry order — but keep new entries roughly newest-first in the file too, for readability and because `Site.sortByYear` falls back to file order as a stable tiebreak between same-year entries. Rendered via the shared `Site.paperCard` helper in `js/utils.js`. `Site.paperCard` renders differently per page: the full card described below on `research.html`, or a numbered APA-style citation (authors, year, title, venue, link only — no tags/tldr/abstract/data links) on `cv.html`, via `Site.paperCitation` — see the note at the end of this section. Everywhere an `authors` string is rendered (both card modes, plus `js/media.js`), `Site.boldenAuthors` bolds this site owner's own byline within it — matched under either surname it's been published under, "Hopkins, S." (current) or "McDonald, S." (before a name change), see the note under `media.json` below.
 
 ```json
 {
@@ -93,7 +93,7 @@ Array, ordered by year (newest first). Rendered by `js/publications.js`, via the
 
 ## data/working_papers.json — preprints / under review
 
-Array, newest first. Rendered by `js/working_papers.js`, via the same `Site.paperCard` helper. Same shape as `publications.json` (including optional `tags`, `abstract`, `tldr`, `dataUrl`, `codeUrl`, see above); `publication` is used as a status note (the host name only, e.g. `"SSRN"`) rather than a journal name.
+Array, sorted by `year` (newest first) at render time — same as `publications.json` above. Rendered by `js/working_papers.js`, via the same `Site.paperCard` helper. Same shape as `publications.json` (including optional `tags`, `abstract`, `tldr`, `dataUrl`, `codeUrl`, see above); `publication` is used as a status note (the host name only, e.g. `"SSRN"`) rather than a journal name.
 
 ```json
 {

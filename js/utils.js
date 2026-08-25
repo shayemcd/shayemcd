@@ -42,6 +42,19 @@ const Site = {
 
 
   /**
+   * Sort papers by year, newest first. Missing/unparseable years sort last.
+   * Stable, so entries sharing a year keep their relative order in the
+   * source file (the natural tiebreak, since data only has year granularity).
+   */
+  sortByYear(papers) {
+    return [...papers].sort((a, b) => {
+      const yearA = parseInt(a.year, 10);
+      const yearB = parseInt(b.year, 10);
+      return (Number.isNaN(yearB) ? -Infinity : yearB) - (Number.isNaN(yearA) ? -Infinity : yearA);
+    });
+  },
+
+  /**
    * Fetch a JSON data file. Returns null (instead of throwing) when the
    * file is missing or malformed so a broken file hides its section
    * rather than breaking the page. Errors are logged to the console.

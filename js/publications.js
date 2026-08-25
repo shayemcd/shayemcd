@@ -1,4 +1,4 @@
-/** Renders data/publications.json (array of published papers, newest first). */
+/** Renders data/publications.json (array of published papers), sorted newest first by year. */
 Site.load("./data/publications.json", "publications-container", (container, papers) => {
-  papers.forEach((paper) => container.appendChild(Site.paperCard(paper)));
+  Site.sortByYear(papers).forEach((paper) => container.appendChild(Site.paperCard(paper)));
 });
