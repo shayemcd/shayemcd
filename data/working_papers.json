@@ -6,7 +6,7 @@
     "year": "2026",
     "url": "https://doi.org/10.21203/rs.3.rs-8663921/v2",
     "tags": ["Misinformation, Trust & Polarization"],
-    "subtopics": ["AI-Mediated Interventions"],
+    "subtopics": ["Discernment & Correction Tools"],
     "abstract": "Elections, while central to democratic functioning, have become increasingly threatened by beliefs about election fraud. Artificial intelligence (AI) provides a novel opportunity to address such false beliefs through dynamic conversation and debunking. Through two experiments (N = 1,802 Republicans from Lucid who endorsed election fraud claims), we examined the use of AI to fact-check 2020 election conspiracies prior to the 2024 US Presidential election. We tested the effects of two treatments (an information-tailored and values-tailored AI dialogue) in which AI fact-checked their claims and tailored arguments to the specific election conspiracy that the participant themselves articulated. Both treatment conditions, when compared to a control dialogue and a simple statement that the conspiracy was incorrect, reduced confidence in their election conspiracy claims. There was no significant difference between information-tailored and values-tailored feedback. Promisingly, participants with the strongest baseline denialism experienced the largest decreases in denialism beliefs. These studies highlight the potential of AI-driven interventions to address election misinformation."
   },
   {
@@ -16,7 +16,7 @@
     "year": "2025",
     "url": "https://doi.org/10.31219/osf.io/bg7fx_v2",
     "tags": ["Misinformation, Trust & Polarization"],
-    "subtopics": ["Conspiracy Beliefs & Personality"]
+    "subtopics": ["Personality & Individual Differences"]
   },
   {
     "title": "Motivating Change: Combining Social Comparison and Equivalency Frames Influence Pro-Environmental Behaviors",
@@ -25,7 +25,7 @@
     "year": "2026",
     "url": "http://osf.io/preprints/psyarxiv/4v6we_v1",
     "tags": ["Sustainability"],
-    "subtopics": ["Social Norms & Framing"]
+    "subtopics": ["Framing & Motivation"]
   },
   {
     "title": "Who are Effective and Trustworthy Messengers for Election-Related Communications? How Local Messengers Impact Effectiveness of Psychological Inoculation",
@@ -33,7 +33,7 @@
     "publication": "Research Square",
     "url": "https://doi.org/10.21203/rs.3.rs-8663461/v1",
     "tags": ["Misinformation, Trust & Polarization"],
-    "subtopics": ["Messenger Effects"],
+    "subtopics": ["Discernment & Correction Tools", "Trust & Cooperation"],
     "abstract": "Trust serves as a critical heuristic that facilitates basic democratic functioning. The rise of election-related misinformation has been linked to a decline in democratic trust. Recent research suggests that psychological inoculation, or pre-exposure to how misinformation works, may be an effective method to address misinformation beliefs. We extend this line of inquiry to examine the effectiveness of inoculation messages in countering election-related misinformation and to explore whether inoculation interventions are subject to messenger effects, a phenomenon in which information is evaluated by the identity of the person delivering it, rather than its objective content. Using three online experiments (n = 2317), we test how different messengers (e.g., election organizations, election officials, and non-election-related individuals and entities) impact participants’ discernment, trust, and engagement with actual true and false headlines. We find that messenger identity affects the effectiveness of inoculation messages. Specifically, local, male messengers—such as pastors and election officials—were more effective than a typical voter and other institution-based messengers at improving discernment between true and false information by up to 12 percentage points. These messenger effects were strongest in the period leading up to the 2022 US midterm elections and for individuals more susceptible to believing misinformation."
   },
   {
@@ -43,7 +43,7 @@
     "year": "2025",
     "url": "http://dx.doi.org/10.2139/ssrn.5159718",
     "tags": ["Sustainability"],
-    "subtopics": ["Financial Framing & Friction"],
+    "subtopics": ["Transportation & Commuting Behavior"],
     "abstract": "Reducing single-occupancy vehicle (SOV) commuting is a critical challenge for urban sustainability, yet many existing policies fail to account for the behavioral factors that influence commuting choices. This paper examines how financial framing, friction reduction, and payment saliency impact parking decisions, drawing on insights from both lab and field experiments. In Study 1, a lab-based experiment tested the effects of ordering and framing transportation choices, finding that both financial and environmental messaging increased stated preferences for sustainable commuting. However, Study 2, a field experiment on parking permit selection, revealed that only financial framing, when paired with friction reduction, significantly increased sign-ups for daily parking permits—suggesting that while environmental appeals influence attitudes, financial considerations drive real-world behavior. Study 3 extended this work by testing payment saliency interventions, demonstrating that daily cost notifications combined with alternative transportation options were most effective at reducing parking frequency. Study 4 further explored self-directed decision tools, finding that a parking cost calculator increased engagement but did not independently shift behavior. Collectively, these findings highlight the disconnect between stated and actual behavior, emphasizing that while people express pro-environmental intentions, monetary factors and decision effort ultimately shape commuting choices. Our results suggest that restructuring parking policies—such as replacing annual permits with daily pricing, increasing cost saliency through receipts and notifications, and reducing friction for alternative modes—can be effective in shifting commuter behavior. We discuss the implications for transportation demand management (TDM) policies, highlighting the need for behaviorally informed strategies that align financial incentives with sustainability goals."
   },
   {
@@ -53,7 +53,7 @@
     "year": "2025",
     "url": "https://doi.org/10.31234/osf.io/czgkj_v1",
     "tags": ["Well-being"],
-    "subtopics": ["Financial Access"],
+    "subtopics": ["Financial Well-being"],
     "abstract": "Prior research highlights the disparity in wealth-building activity participation among lower-to-middle-income (LMI) households, resulting in issues like the racial wealth gap. This presents an opportunity to improve how financial institutions offer products through proven strategies such as warm handoffs. In collaboration with a debt management and a financial services company, we conducted a field experiment testing the impact of a warm handoff process. This culminated in an offer to engage in a financial advisor call for further guidance on the next steps in their financial journey for participants completing a debt management plan (DMP). In the months leading up to their DMP graduation, 1,329 clients received either a four-email handoff over four months (high-touch), a one-email handoff (streamlined), or no handoff email (the control). We see stronger open and click-through rates for the handoff email in the high-touch treatment, compared to the streamlined treatment. Otherwise, we see statistically significant differences in open rates by race, with people of color engaging with these resources at higher rates. This suggests that behaviorally informed warm handoff strategies could effectively improve engagement with financial resources and financial well-being, particularly for people of color."
   },
   {
@@ -63,6 +63,6 @@
     "year": "2023",
     "url": "https://advanced-hindsight.com/wp-content/uploads/2023/02/CAH-Fresh-Start-Effect-Report.pdf",
     "tags": ["Sustainability"],
-    "subtopics": ["Transportation Behavior"]
+    "subtopics": ["Transportation & Commuting Behavior"]
   }
 ]
