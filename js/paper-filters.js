@@ -2,15 +2,22 @@
  * Builds a two-tier filter (topic + subtopic) above Publications/Working
  * Papers/Manuscripts in Preparation, once all three sections have finished
  * loading (via the `site:sectionLoaded` event dispatched by Site.load).
- * Topic comes from each paper's `tags` field, subtopic from `subtopics`.
- * A paper must match the active selection on both facets (an "All" on
- * either facet leaves that facet unconstrained). Used on both
- * research.html and cv.html - on cv.html the filter also determines what
- * gets printed, since [hidden] applies under print media too.
+ * Topic comes from each paper's `tags` field, subtopic from `subtopics`
+ * (a paper can carry more than one of either — see schemas.md). A paper
+ * must match the active selection on both facets (an "All" on either
+ * facet leaves that facet unconstrained). Used on both research.html and
+ * cv.html - on cv.html the filter also determines what gets printed,
+ * since [hidden] applies under print media too.
+ *
+ * The subtopic bar stays hidden until a specific topic is selected, and
+ * only lists subtopics that actually occur under that topic - showing
+ * every subtopic across every topic at once got overwhelming as the
+ * subtopic count grew.
  */
 (() => {
   const WATCHED = ["publications-container", "working-papers-container", "manuscripts-container"];
   const loaded = new Set();
+  let cards = [];
   let activeTag = "";
   let activeSubtopic = "";
 
@@ -21,38 +28,54 @@
   });
 
   function init() {
-    const cards = [...document.querySelectorAll(".paper[data-tags]")];
+    cards = [...document.querySelectorAll(".paper[data-tags]")];
     if (!cards.length) return;
 
-    buildFacet("tag-filter-bar", "data-tags", cards, (value) => {
+    const tagBar = document.getElementById("tag-filter-bar");
+    const subtopicBar = document.getElementById("subtopic-filter-bar");
+
+    setUpFacet(tagBar, collectValues(cards, "data-tags"), (value) => {
       activeTag = value;
-      applyFilters(cards);
+      activeSubtopic = "";
+      refreshSubtopicFacet(subtopicBar);
+      applyFilters();
     });
-    buildFacet("subtopic-filter-bar", "data-subtopics", cards, (value) => {
-      activeSubtopic = value;
-      applyFilters(cards);
-    });
+
+    if (subtopicBar) {
+      subtopicBar.addEventListener("click", (event) => {
+        const btn = event.target.closest(".tag-filter");
+        if (!btn) return;
+        subtopicBar.querySelectorAll(".tag-filter").forEach((b) => b.classList.toggle("is-active", b === btn));
+        activeSubtopic = btn.dataset.value;
+        applyFilters();
+      });
+    }
+
+    refreshSubtopicFacet(subtopicBar);
+    applyFilters();
   }
 
-  function buildFacet(barId, dataAttr, cards, onSelect) {
-    const bar = document.getElementById(barId);
-    if (!bar) return;
-
+  function collectValues(cardList, attr) {
     const values = new Set();
-    cards.forEach((card) => {
-      const raw = card.getAttribute(dataAttr);
+    cardList.forEach((card) => {
+      const raw = card.getAttribute(attr);
       if (raw) raw.split("|").forEach((v) => values.add(v));
     });
-    if (!values.size) return;
+    return values;
+  }
 
-    const makeButton = (label, value, active) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = active ? "tag-filter is-active" : "tag-filter";
-      btn.textContent = label;
-      btn.dataset.value = value;
-      return btn;
-    };
+  function makeButton(label, value, active) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = active ? "tag-filter is-active" : "tag-filter";
+    btn.textContent = label;
+    btn.dataset.value = value;
+    return btn;
+  }
+
+  /** Set up a facet bar once: populate its buttons and wire its click handler. */
+  function setUpFacet(bar, values, onSelect) {
+    if (!bar || !values.size) return;
 
     bar.appendChild(makeButton("All", "", true));
     [...values].sort().forEach((value) => bar.appendChild(makeButton(value, value, false)));
@@ -67,7 +90,29 @@
     bar.hidden = false;
   }
 
-  function applyFilters(cards) {
+  /** Rebuild the subtopic bar's options to only those under the active topic; hidden with no topic selected. */
+  function refreshSubtopicFacet(bar) {
+    if (!bar) return;
+    bar.innerHTML = "";
+
+    if (!activeTag) {
+      bar.hidden = true;
+      return;
+    }
+
+    const relevant = cards.filter((card) => (card.dataset.tags || "").split("|").includes(activeTag));
+    const values = collectValues(relevant, "data-subtopics");
+    if (!values.size) {
+      bar.hidden = true;
+      return;
+    }
+
+    bar.appendChild(makeButton("All", "", true));
+    [...values].sort().forEach((value) => bar.appendChild(makeButton(value, value, false)));
+    bar.hidden = false;
+  }
+
+  function applyFilters() {
     cards.forEach((card) => {
       const tagMatch = !activeTag || (card.dataset.tags || "").split("|").includes(activeTag);
       const subtopicMatch = !activeSubtopic || (card.dataset.subtopics || "").split("|").includes(activeSubtopic);
