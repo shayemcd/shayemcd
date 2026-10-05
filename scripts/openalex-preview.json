@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Dialogues on Democracy: Belief-Tailored AI Conversations Reduce Inaccurate Election Denial Beliefs",
+    "authors_raw": "Shaye-Ann M Hopkins, Thomas H. Costello, Gordon Pennycook, David Gertler Rand",
+    "venue": "Research Square",
+    "year": "2026",
+    "type": "preprint",
+    "url": "https://doi.org/10.21203/rs.3.rs-8663921/v1",
+    "abstract": null,
+    "note": "Auto-discovered from OpenAlex \u2014 needs house-style author formatting, a choice of data/publications.json vs. data/working_papers.json, and real tags/subtopics before merging. Delete this file once reviewed."
+  },
+  {
+    "title": "Which Topics Polarize Where? Mapping Polarization and Depolarization in News Comments",
+    "authors_raw": "Shaye-Ann M Hopkins, Rima-Maria Rahal",
+    "venue": "Open Science Framework",
+    "year": "2026",
+    "type": "other",
+    "url": "https://doi.org/10.17605/osf.io/d2ta5",
+    "abstract": "Research increasingly highlights the affective and destructive dynamics visible in everyday digital communication. However, digital trace research exploring related topics often remains concentrated on major social platforms (e.g., X/Twitter, Reddit) and WEIRD contexts. As a result, news forums and comment ecosystems are underexplored, despite their potential to intensify polarized views through disagreement (Kubin & von Sikorski, 2024). Using engagement data from Austrian online news forums (e.g., Der Standard), we examine polarization in article comments between January 2024 and December 2025, spanning different political orientations and media styles (e.g., left vs. right; quality vs. populist). By doing this, our primary goal is to identify which topics are most associated with high polarization-based language in these forums and whether polarization differs across news outlets. Furthermore, we aim to examine within-comment shifts in polarization to understand what depolarizes individuals within these comment threads. Expected outcomes include (1) a Polarization Index for comment and article-level data, (2) a ranked map of polarizing topics across outlets, (3) estimates of outlet differences in polarizing topics, and (4) evidence on which reply strategies/users are associated with de-escalation, which can potentially inform future interventions.",
+    "note": "Auto-discovered from OpenAlex \u2014 needs house-style author formatting, a choice of data/publications.json vs. data/working_papers.json, and real tags/subtopics before merging. Delete this file once reviewed."
+  },
+  {
+    "title": "Dialogues on Democracy: Belief-Tailored AI Conversations Reduce Inaccurate Election Denial Beliefs",
+    "authors_raw": "Gordon Pennycook, Shaye-Ann M Hopkins, David Gertler Rand, Thomas H. Costello",
+    "venue": null,
+    "year": "2024",
+    "type": "preprint",
+    "url": "https://doi.org/10.17605/osf.io/2cfkv",
+    "abstract": "Elections have become increasingly threatened by beliefs about election fraud. Artificial intelligence (AI) provides a unique opportunity to address such false beliefs through dynamic conversation and debunking. Through a series of experiments conducted shortly before the 2024 US Presidential election, we examined whether corrective conversations with a large language model can reduce election denial beliefs through claim-targeted dialogues.",
+    "note": "Auto-discovered from OpenAlex \u2014 needs house-style author formatting, a choice of data/publications.json vs. data/working_papers.json, and real tags/subtopics before merging. Delete this file once reviewed."
+  },
+  {
+    "title": "Motivating Change: Combining Social Comparison and Equivalency Frames Influence Pro-Environmental Behaviors",
+    "authors_raw": "Shaye-Ann M Hopkins, Joseph Sherlock, Emma Martinez Daniel, Caylin Luebeck, Lyndsay Gavin, Michael Daly",
+    "venue": null,
+    "year": "2026",
+    "type": "preprint",
+    "url": "https://doi.org/10.31234/osf.io/4v6we_v1",
+    "abstract": "Individual-level behaviors account for a majority of global emission levels, but motivating people to adopt morepro-environmental behaviors (PEB) remains a critical challenge. Research shows that brief, behavioral nudgescan encourage PEBs. However, limited research has tested the efficacy of multi-dimensional framing.Through an online experiment (N = 1,535), we tested the effects of multi-dimensional message frames, or thecombination of norms-based feedback (social comparisons, collective impact, or individual impact) paired withanalogical framing (emissions in tons or gallons of gasoline), compared to a control condition. We test howthese interventions change their willingness, likelihood, ability, and commitment to modifying their mostfrequent environmentally harmful behavior.Feedback that compared an individual's environmental behavior to the norm (\u201ctypical Americans\u201d), or sharedthe collective emissions impact, when combined with equivalency framing, increased the likelihood andcommitment to shift toward pro-environmental behaviors. All other combination frames had non-significanteffects. We find that the intervention effects are fully mediated by a theory of planned behavior-like funnel,with social norms and interventions influencing willingness, likelihood, and commitment to behavior change.When individuals felt stronger control over the future of the environment, multi-dimensional frames morestrongly motivated change across several treatment conditions. Otherwise, we find evidence of income as amoderator, with some numeric multi-dimensional frames backfiring for higher-income participants.This research offers insights into the efficacy, segmentation potential, and psychological limitations ofmultidimensional frames in sustainable decision-making. Leveraging these nuances could improve low-cost,scalable environmental framing strategies for policy, environmental advocacy, and other climate efforts.",
+    "note": "Auto-discovered from OpenAlex \u2014 needs house-style author formatting, a choice of data/publications.json vs. data/working_papers.json, and real tags/subtopics before merging. Delete this file once reviewed."
+  }
+]
